@@ -1,3 +1,4 @@
+DROP database Team2;
 Create database Team2;
 use Team2;
 
@@ -66,6 +67,28 @@ FOREIGN KEY(charactertId) REFERENCES BookCharacter(charactertId));
  
  
 
+-------------------------------------------- Kyungjin (2019-11-07)
+
+create table BookLocation(
+locationId int PRIMARY KEY AUTO_INCREMENT,
+locationName varchar(255),
+description longblob
+);
+
+create table Story_BookLocation(
+storyId  int not null,
+locationId int not null,
+FOREIGN KEY(storyId) REFERENCES Story(storyId),
+FOREIGN KEY(locationId) REFERENCES BookLocation(locationId));
+ 
+INSERT INTO BOOK VALUES(1, 2, "The Little Prince", "Novel");
+INSERT INTO BOOK VALUES(2, 2, "The Lord of the Rings", "Fantasy");
+INSERT INTO BOOK VALUES(3, 2, "Harry Potter and the Philosopher's Stone", "Fantasy");
+INSERT INTO BOOK VALUES(4, 1, "The Lion, the Witch and the Wardrobe", "Fantasy");
+
+ALTER TABLE Story CHANGE COLUMN `subTitle` `chapterTitle` VARCHAR(255);
+ALTER TABLE Story DROP COLUMN `location`;
+ 
 
  
  
