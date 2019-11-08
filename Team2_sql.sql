@@ -87,3 +87,42 @@ INSERT INTO BOOK VALUES(4, 1, "The Lion, the Witch and the Wardrobe", "Fantasy")
 
 ALTER TABLE Story CHANGE COLUMN `subTitle` `chapterTitle` VARCHAR(255);
 ALTER TABLE Story DROP COLUMN `location`;
+
+
+---------------------------------------------------- Kyungjin (2019-11-08)
+DROP TABLE Story_BookCharacter;
+DROP TABLE Story_BookLocation;
+DROP TABLE BookCharacter;
+DROP TABLE BookLocation;
+
+
+create table `Character`(
+charactertId int PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+age int(100),
+appereance varchar(255),
+bookId int not null,
+FOREIGN KEY(bookId) REFERENCES Book(bookId)
+);
+
+create table Story_Character(
+storyId  int not null,
+charactertId int not null,
+FOREIGN KEY(storyId) REFERENCES Story(storyId),
+FOREIGN KEY(charactertId) REFERENCES `Character`(charactertId));
+ 
+
+create table Location(
+locationId int PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+description longblob,
+bookId int not null,
+FOREIGN KEY(bookId) REFERENCES Book(bookId)
+);
+
+create table Story_Location(
+storyId  int not null,
+locationId int not null,
+FOREIGN KEY(storyId) REFERENCES Story(storyId),
+FOREIGN KEY(locationId) REFERENCES Location(locationId));
+ 
