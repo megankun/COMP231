@@ -16,8 +16,34 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h1>Episode</h1>
+	<h1>Write story for your book !</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Title</th>
+				<th scope="col">Genre</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="book" items="${bookList}">
+				<tr>
+					<th scope="row">${book.bookId}</th>
+					<td>${book.title}</td>
+					<td>${book.genre}</td>
+					<td>
+						<button type="button" class="btn btn-primary">View Stories (Megan)</button>
+						
+						<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
+
 	
-	<button type="button" class="btn btn-primary">Create Episode</button>
 </body>
 </html>
