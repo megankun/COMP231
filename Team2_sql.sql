@@ -79,7 +79,19 @@ storyId  int not null,
 locationId int not null,
 FOREIGN KEY(storyId) REFERENCES Story(storyId),
 FOREIGN KEY(locationId) REFERENCES BookLocation(locationId));
- 
+
+ INSERT INTO `Team2`.`User`
+(
+`email`,
+`password`,
+`userType`,
+`firstName`,
+`lastName`,
+`phoneNumber`)
+VALUES
+('kj@g.com',
+'123','Writer','Kyungjin','Jeong','1234567890' );
+
 INSERT INTO BOOK VALUES(1, 2, "The Little Prince", "Novel");
 INSERT INTO BOOK VALUES(2, 2, "The Lord of the Rings", "Fantasy");
 INSERT INTO BOOK VALUES(3, 2, "Harry Potter and the Philosopher's Stone", "Fantasy");
@@ -94,8 +106,8 @@ DROP TABLE Story_BookCharacter;
 DROP TABLE Story_BookLocation;
 DROP TABLE BookCharacter;
 DROP TABLE BookLocation;
-DROP TABLE Story_Character;
-DROP TABLE `Character`;
+-- DROP TABLE Story_Character;
+-- DROP TABLE `Character`;
 
 
 create table BookCharacter(
