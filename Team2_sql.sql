@@ -65,10 +65,25 @@ FOREIGN KEY(storyId) REFERENCES Story(storyId),
 FOREIGN KEY(charactertId) REFERENCES BookCharacter(charactertId));
  
  
+---------------------------------------------------- Kyungjin (2019-11-07)
 
+create table BookLocation(
+locationId int PRIMARY KEY AUTO_INCREMENT,
+locationName varchar(255),
+description longblob
+);
 
+create table Story_BookLocation(
+storyId  int not null,
+locationId int not null,
+FOREIGN KEY(storyId) REFERENCES Story(storyId),
+FOREIGN KEY(locationId) REFERENCES BookLocation(locationId));
  
+INSERT INTO Book Values(1, 2, 'The Little Prince', 'Novel');
+INSERT INTO Book Values(2, 2, 'The Lord of the Rings', 'Fantasy');
+INSERT INTO Book Values(3, 2, 'Harry Potter and the Philosopher\'s Stone', 'Fantasy');
+INSERT INTO Book Values(4, 1, 'The Lion, the Witch and the Wardrobe', 'Fantasy');
  
- 
- 
+ALTER TABLE Story CHANGE COLUMN `subTitle` `chapterTitle` varchar(255);
+ALTER TABLE Story DROP COLUMN location;
  
