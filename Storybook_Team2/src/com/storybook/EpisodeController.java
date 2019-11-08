@@ -1,5 +1,7 @@
 package com.storybook;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 
 
 @Controller
@@ -67,10 +70,80 @@ public class EpisodeController {
 
 	@RequestMapping(value= "/addStory", method = RequestMethod.POST)
 	public ModelAndView addStory(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("IN!!");
+		ModelAndView modelAndView = new ModelAndView("");
+		
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+
+		
+		int bookId = Integer.parseInt(request.getParameter("bookId"));
+		String chapterTitle = request.getParameter("chapterTitle");
+		String note = request.getParameter("note");
+
+		String[] tempLocationIdsArray = request.getParameter("checkedLocationIds").split(",");
+		String[] tempCharacterIdsArray = request.getParameter("checkedCharacterIds").split(",");
+
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String created_at = formatter.format(new Date());
+		
+		// Add Story
+		em.getTransaction().begin();
+		
+		Story story = new Story();
+		
+		story.setChapterTitle(chapterTitle);
+		story.setNote(note);
+		story.setBookId(bookId);
+		story.setCreated_at(created_at);
+
+		em.persist(story);
+
+		em.getTransaction().commit();
 		
 		
-		return null;
+		// Select Story Id
+		Query query = em.createQuery("select s.storyId from Story s where s.created_at = :param").setParameter("param", created_at);
+		int storyId = (int) query.getResultList().get(0);
+
+		// Add Story_Location
+		em.clear();          
+        em.getTransaction().begin();
+        
+		for(int i = 0; i < tempLocationIdsArray.length; i++) {
+			Story_Location story_location = new Story_Location();
+			story_location.setStoryId(storyId);
+			story_location.setLocationId(Integer.parseInt(tempLocationIdsArray[i]));
+
+			em.persist(story_location);
+			
+			em.getTransaction().commit();
+
+			
+			em.clear();          
+	        em.getTransaction().begin();
+		}
+		
+		// Add Story_BookCharacter
+		em.clear();          
+        
+		for(int i = 0; i < tempCharacterIdsArray.length; i++) {
+			Story_BookCharacter story_bookCharacter = new Story_BookCharacter();
+			story_bookCharacter.setStoryId(storyId);
+			story_bookCharacter.setCharacterId(Integer.parseInt(tempCharacterIdsArray[i]));
+
+			em.persist(story_bookCharacter);
+			
+			em.getTransaction().commit();
+
+			
+			em.clear();          
+	        em.getTransaction().begin();
+		}
+		
+		em.close();
+		
+		// return to list of stories for that book (Megan)
+		return modelAndView;
 	}
 }
 
