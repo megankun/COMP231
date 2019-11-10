@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>Episode</title>
+	<title>Chapters</title>
 	<link href="<%=request.getContextPath()%>/css/naviCss.css" rel="stylesheet" type="text/css"/>	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 		
@@ -16,36 +16,38 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h1>Write story for your book !</h1>
+	<h1>List of Chapters</h1>
 
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Title</th>
-				<th scope="col">Genre</th>
+				<th scope="col">Chapter Title</th>
+				<th scope="col"></th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="book" items="${bookList}">
+			<c:forEach var="chapter" items="${chapterList}">
 				<tr>
-					<th scope="row">${book.bookId}</th>
-					<td>${book.title}</td>
-					<td>${book.genre}</td>
+					<td>${chapter.getChapterTitle()}</td>
+					<td>${chapter.getNote()}</td>
 					<td>
-						<form action="chapterList" method="post">
-						<input type="hidden" value="${book.bookId}" name="bookId">
+					<form action="loadEditStory">
+						<input type="hidden" value="${chapter.getBookId()}" name="bookId">
 						<input type="hidden" value="${userId}" name="userId">
-						<button type="submit" class="btn btn-primary">View Stories</button>
+						<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
+						<button type="submit" class="btn btn-primary">Edit</button>
 						</form>
-						<br>
-						<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
 					</td>
 				</tr>
 			</c:forEach>
+			<tr>
+			<td>
+			<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
+			</td>
+			</tr>
 		</tbody>
-	</table>
+	</table>		
 
 
 	

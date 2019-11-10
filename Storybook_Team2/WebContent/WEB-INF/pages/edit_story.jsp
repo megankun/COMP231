@@ -31,26 +31,28 @@
 	Title: ${book.title}<br/>
 	Genre: ${book.genre}<br/>
 	
-	<form action="addStory" method="post">
+	
+	<form action="editStory" method="post">
 		<input type="hidden" name="bookId" value="${book.bookId}"/>
 		<input type="hidden" name="userId" value="${userId}" >
+		<input type="hidden" name="storyId" value="${storyId}">
 		<br/><br/>
 		
-		Chapter Title: <input type="text" name="chapterTitle"/><br/><br/>
+		Chapter Title: <input type="text" name="chapterTitle" value="${chapterTitle}"/><br/><br/>
 		
 		Location: <br/><br/>
 		
-		<input type="text" name="checkedLocationIds" id="checkedLocationIds"/>
+		<input type="text" name="checkedLocationIds" id="checkedLocationIds" value="${checkedLocationIds}"/>
 		<a href='#' onclick='popupLocation()'>Location List</a>
 		<br/><br/>
 		
 		Character: <br/>
 		
-		<input type="text" name="checkedCharacterIds" id="checkedCharacterIds"/>
+		<input type="text" name="checkedCharacterIds" id="checkedCharacterIds" value="${checkedCharacterIds}"/>
 		<a href='#' onclick='popupCharacter()'>Character List</a>
 		<br/><br/>
 		
-		Note: <textarea name='note'></textarea><br/>
+		Note: <textarea name='note'>${note}</textarea><br/>
 		
 		<button type="submit">submit</button>
 	</form>

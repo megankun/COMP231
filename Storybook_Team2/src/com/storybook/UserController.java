@@ -41,7 +41,7 @@ public class UserController {
 			cs.close();
 			
 			view.addObject("userId", checkUser.getUserId());
-			
+			view.addObject("FirstName", checkUser.getFirstName());
 			// login success
 			return view;
 			
