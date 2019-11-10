@@ -136,6 +136,46 @@ public class UserController {
 		
 		return new ModelAndView("signIn", "message", message);		
 	}
+
+
+	@RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
+	public ModelAndView getUserAccountInfo(HttpServletRequest request, HttpServletResponse response) {
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		cs = factory.createEntityManager();
+		Query query = cs.createQuery("select c from User c where c.userId = '" + userId + "'");
+		User user = null;
+		if(!query.getResultList().isEmpty()) {
+			user = (User) query.getResultList().get(0);
+				
+		}
+		
+		 return new ModelAndView("accountinfo", "user", user);	
+		
+	}
+	
+	
+	@RequestMapping(value = "/edituserinfo", method = RequestMethod.POST)
+	public ModelAndView editUserAccountInfo(HttpServletRequest request, HttpServletResponse response) {
+		User user = new User();
+	
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		cs = factory.createEntityManager();
+		cs.getTransaction().begin();
+		user=cs.find(User.class, Integer.parseInt(request.getParameter("userId")));
+		user.setEmail(request.getParameter("email"));
+		user.setPassword(request.getParameter("password"));
+		user.setUserType(request.getParameter("userType"));
+		user.setFirstName(request.getParameter("firstName"));
+		user.setLastName(request.getParameter("lastName"));
+		user.setPhoneNumber(request.getParameter("phoneNumber"));
+		cs.persist(user);
+		cs.getTransaction().commit();
+		
+	    return new ModelAndView("accountinfo", "user", user);	
+		
+	}
+
 }
 
 	
