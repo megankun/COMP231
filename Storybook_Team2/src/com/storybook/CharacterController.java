@@ -148,6 +148,7 @@ public class CharacterController {
 		modelAndView.addObject("userId",userId);
 		modelAndView.addObject("bookId",bookId);
 		modelAndView.addObject("characterList", characterList);
+		
 		return modelAndView;
 	}
 
