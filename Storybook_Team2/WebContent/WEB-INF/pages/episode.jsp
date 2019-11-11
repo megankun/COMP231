@@ -40,6 +40,8 @@
 						<button type="submit" class="btn btn-primary">View Stories</button>
 						</form>
 						<br>
+						<a class="btn btn-primary" href="<c:url value="/newCharacter?userId=${userId}&bookId=${book.bookId}"/>">Create New Character</a>
+					
 						<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
 					</td>
 				</tr>
