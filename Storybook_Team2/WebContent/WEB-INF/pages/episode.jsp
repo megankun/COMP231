@@ -38,11 +38,18 @@
 						<input type="hidden" value="${book.bookId}" name="bookId">
 						<input type="hidden" value="${userId}" name="userId">
 						<button type="submit" class="btn btn-primary">View Stories</button>
+						<a class="btn btn-primary" href="<c:url value="/characterUpdateList?userId=${userId}&bookId=${book.bookId}"/>">View Characters</a>
+						
+						<a class="btn btn-primary" href="<c:url value="/updatedLocation?userId=${userId}&bookId=${book.bookId}"/>">View Locations</a>
+						
 						</form>
 						<br>
 						<a class="btn btn-primary" href="<c:url value="/newCharacter?userId=${userId}&bookId=${book.bookId}"/>">Create New Character</a>
-					
+						<a class="btn btn-primary" href="<c:url value="/newLocation?userId=${userId}&bookId=${book.bookId}"/>">Create New Location</a>
+				
+						<br><br>
 						<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
+				
 					</td>
 				</tr>
 			</c:forEach>
