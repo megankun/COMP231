@@ -58,10 +58,32 @@ public class CharacterController {
 		em.close();
 
 		
+		modelAndView.addObject("userId", userId);
 		modelAndView.addObject("characterList", characterList);
 		return modelAndView;
 	}
 	
+	@RequestMapping(value= "/editCharacter")
+	public ModelAndView editLocation(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("edit_character");
+		
+		int userId  = Integer.parseInt(request.getParameter("userId"));
+		int bookId  = Integer.parseInt(request.getParameter("bookId"));	
+		int characterId  = Integer.parseInt(request.getParameter("characterId"));	
+		String name = request.getParameter("name");
+		int age = Integer.parseInt(request.getParameter("age"));
+		String appereance = request.getParameter("appereance");
+		
+		modelAndView.addObject("characterId",characterId);
+		modelAndView.addObject("name", name);
+		modelAndView.addObject("age", age);
+		modelAndView.addObject("appereance",appereance);
+		modelAndView.addObject("userId",userId);
+		modelAndView.addObject("bookId", bookId);
+	
+		
+		return modelAndView;
+	}
 	@RequestMapping(value= "/newCharacter", method = RequestMethod.GET)
 	public ModelAndView createNewCharacter(@RequestParam String bookId, int userId) {
 		ModelAndView modelAndView = new ModelAndView("newCharacter");
