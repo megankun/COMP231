@@ -10,34 +10,9 @@
 	<title>Character List</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 		
-	<script>
-		function returnCharacterIds() {
-			var allCharacterIds = document.getElementsByName("characterId");
-		  	var checkedIds = [];
-		  	var count = 0;
-		  
-		  	for (var i = 0; i < allCharacterIds.length; i++) {
-		    	if (allCharacterIds[i].checked) {
-		    		checkedIds[count] = allCharacterIds[i].value;
-		    		
-		    		count++;
-		    	}
-		  	}
-		  
-		  	//alert(checkedIds.length);
-		  	if(checkedIds.length != 0){
-		  		//alert("submit!");
-			  	opener.document.getElementById("checkedCharacterIds").value = checkedIds;
 
-				window.close()
-		  	}else {
-		  		alert("Please select any character to save!");
-		  	}
-		}
-	</script>
 </head>
 <body>
-	<%@ include file="navigation_bar.jsp" %>
 	
 	<h3>Character List</h3>
 	
@@ -53,10 +28,24 @@
 		<tbody>
 			<c:forEach var="character" items="${characterList}">
 				<tr>
-					<td><input type="checkbox" name="characterId" value="${character.characterId}"/></td>
+					<td>${character.characterId}</td>
 					<td>${character.name}</td>
 					<td>${character.age}</td>
 					<td>${character.appereance}</td>
+					<td>
+						<form action="editCharacter">
+							<input type="hidden" value="${userId}" name="userId" />
+							<input type="hidden" value="${character.characterId}" name="characterId" />
+							<input type="hidden" value="${character.name}" name="name">
+							<input type="hidden" value="${character.age}" name="age">
+							<input type="hidden" value="${character.appereance}" name="appereance">
+							<input type="hidden" value="${character.bookId}" name="bookId">
+							
+							<button type="submit" class="btn btn-primary">Edit</button>
+							
+						</form>
+					</td>
+					
 				</tr>
 			</c:forEach>
 		</tbody>
