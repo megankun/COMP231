@@ -16,13 +16,13 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h1>List of Chapters</h1>
+	<h1 class="text-center">List of Chapters</h1>
 
 	<table class="table">
 		<thead>
 			<tr>
 				<th scope="col">Chapter Title</th>
-				<th scope="col"></th>
+				<th scope="col">Note</th>
 				<th scope="col"></th>
 			</tr>
 		</thead>
@@ -32,20 +32,18 @@
 					<td>${chapter.getChapterTitle()}</td>
 					<td>${chapter.getNote()}</td>
 					<td>
-					<form action="loadEditStory">
-						<input type="hidden" value="${chapter.getBookId()}" name="bookId">
-						<input type="hidden" value="${userId}" name="userId">
-						<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
-						<button type="submit" class="btn btn-primary">Edit</button>
+						<form action="loadEditStory">
+							<input type="hidden" value="${chapter.getBookId()}" name="bookId">
+							<input type="hidden" value="${userId}" name="userId">
+							<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
+							<button type="submit" class="btn btn-primary">Edit</button>
+							<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
+			
 						</form>
 					</td>
 				</tr>
 			</c:forEach>
-			<tr>
-			<td>
-			<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
-			</td>
-			</tr>
+			
 		</tbody>
 	</table>		
 

@@ -16,7 +16,7 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h1>Write story for your book !</h1>
+	<h1 class="text-center">Write story for your book !</h1>
 
 	<table class="table">
 		<thead>

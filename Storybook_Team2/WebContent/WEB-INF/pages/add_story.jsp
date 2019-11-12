@@ -24,7 +24,7 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h2>Write Story</h2>
+	<h3 class="text-center">Write Story</h3>
 	
 	Book Info <Br/>
 	userId: ${userId} / bookId: ${bookId}<br/>

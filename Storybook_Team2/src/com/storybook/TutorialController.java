@@ -10,9 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TutorialController {
 
-	@RequestMapping(value= "//tutorial")
-	public ModelAndView tutorial(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value= "/tutorial")
+	public ModelAndView tutorial(String userId) {
 		ModelAndView modelAndView = new ModelAndView("tutorial");
+		
+		modelAndView.addObject("userId", userId);
 		return modelAndView;
 	}
 }

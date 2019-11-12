@@ -140,6 +140,8 @@ public class UserController {
 
 	@RequestMapping(value = "/userAccountInfo", method = RequestMethod.GET)
 	public ModelAndView getUserAccountInfo(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("accountinfo");
+		
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		cs = factory.createEntityManager();
@@ -149,14 +151,18 @@ public class UserController {
 			user = (User) query.getResultList().get(0);
 				
 		}
+	
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("userId", userId);
 		
-		 return new ModelAndView("accountinfo", "user", user);	
-		
+		return modelAndView;
 	}
 	
 	
 	@RequestMapping(value = "/edituserinfo", method = RequestMethod.POST)
 	public ModelAndView editUserAccountInfo(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("accountinfo");
+		
 		User user = new User();
 	
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
@@ -172,7 +178,10 @@ public class UserController {
 		cs.persist(user);
 		cs.getTransaction().commit();
 		
-	    return new ModelAndView("accountinfo", "user", user);	
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("userId", request.getParameter("userId"));
+		
+	    return modelAndView;	
 		
 	}
 
