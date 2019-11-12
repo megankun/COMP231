@@ -28,31 +28,25 @@
 	</c:choose>
 	<br />
 	<div style="margin: auto;width: 50%;">		 
-		<form action="newCharacter" method="post">
+		<form action="newLocation" method="post">
 			<input type="hidden" name="bookId" value="${bookId}"/>
 			<input type="hidden" name="userId" value="${userId}"/>
-			<input type="hidden" name="characterId" value="${bookcharacter.characterId}"/>
+			<input type="hidden" name="locationId" value="${location.locationId}"/>
 			
 			
 			<div class="form-group">
 				<label for="name">Name:</label>
-				<input type="text" class="form-control" id="name" name="name" value="${bookcharacter.name}" required/>
+				<input type="text" class="form-control" id="name" name="name" value="${location.name}" required/>
 		  	</div>
 		  	
 			<div class="form-group">
-				<label for="age">Age:</label>
-				<input type="number" class="form-control" id="age" name="age" value="${bookcharacter.age}" required/>
+				<label for="age">Description:</label>
+				<textarea class="form-control" id="description" name='description' value="${location.description}"></textarea>
+				<!-- 
+				<input type="number" class="form-control" id="description" name="description" value="${location.description}" required/>
+		  	 	-->
 		  	</div>
-		  	
-	
-		  	
-			<div class="form-group">
-				<label for="appereance">Appereance:</label>
-				<input type="text" class="form-control" id="appereance" name="appereance" value="${bookcharacter.appereance}"/>
-		  	</div>		  	
-		  	
-		
-		  	
+	  	
 		  	<button type="submit" class="btn btn-primary">Save</button>
 		  	<a class="btn btn-primary" href="<c:url value="/episode?userId=${userId}"/>">Cancel</a>
 		  	
