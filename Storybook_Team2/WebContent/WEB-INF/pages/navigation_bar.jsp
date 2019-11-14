@@ -5,7 +5,7 @@
 			<a class="text-muted" href="#"></a>
 		</div>
 		<div class="col-4 text-center">
-			<a class="blog-header-logo text-dark" href="#" style="font-size:28pt;">Story Book</a>
+			<a class="blog-header-logo text-dark" href="#" style="font-size:28pt;"><b>Story Book</b></a>
 		</div>
 		<div class="col-4 d-flex justify-content-end align-items-center">
 			<a class="btn btn-sm btn-outline-secondary" href="signIn.jsp">Logout</a>
