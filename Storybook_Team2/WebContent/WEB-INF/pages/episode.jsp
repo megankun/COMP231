@@ -90,6 +90,13 @@
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
 				</div>
+				<br>
+				<div class="text-center">
+					<form action="toAddBook" method="post">
+						<input type="hidden" value="${userId}" name="userId">
+						<button type="submit" class="btn btn-primary">Create New Book</button>
+					</form>
+				</div>
 			</c:otherwise>
 		</c:choose>
 

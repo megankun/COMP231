@@ -301,7 +301,6 @@ public class EpisodeController {
 			
 			em.getTransaction().commit();
 
-			
 			em.clear();          
 	        em.getTransaction().begin();
 		}
@@ -318,7 +317,6 @@ public class EpisodeController {
 			
 			em.getTransaction().commit();
 
-			
 			em.clear();          
 	        em.getTransaction().begin();
 		}
@@ -440,6 +438,17 @@ public class EpisodeController {
 		
 		modelAndView.addObject("userId", request.getParameter("userId"));
 		modelAndView.addObject("bookList", bookList);
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value= "/toAddBook", method = RequestMethod.POST)
+	public ModelAndView toAddBook(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("add_book");
+		
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		modelAndView.addObject("userId", userId);
+		
 		return modelAndView;
 	}
 }
