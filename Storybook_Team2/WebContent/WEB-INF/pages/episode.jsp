@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -8,11 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>Episode</title>
-	<link href="<%=request.getContextPath()%>/css/naviCss.css" rel="stylesheet" type="text/css"/>	
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
-		
-	<script>
+<title>Episode</title>
+<link href="<%=request.getContextPath()%>/css/naviCss.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script>
 		function selectedBookId(opt) {
 			var ids = document.getElementsByName('selectedBookId');
 			var selectedId;
@@ -40,12 +39,12 @@
 	</script>
 </head>
 <body>
-	<%@ include file="navigation_bar.jsp" %>
-	
+	<%@ include file="navigation_bar.jsp"%>
+
 	<div class="container">
 		<h3 class="text-center">Write story for your book !</h3>
-		<br/>
-	
+		<br />
+
 		<table class="table">
 			<thead>
 				<tr>
@@ -63,33 +62,39 @@
 						<th scope="row">${book.bookId}</th>
 						<td>${book.title}</td>
 						<td>${book.genre}</td>
-						
+
 						<c:choose>
-							<c:when test="${userType == 'investor'}"> 
-								<td>
-									<a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a>
-								</td>
+							<c:when test="${userType == 'investor'}">
+								<td><a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a></td>
 							</c:when>
 							<c:otherwise>
-								<td>
-									<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a>
-									<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
-								</td>
+								<td><a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> <a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a></td>
 							</c:otherwise>
 						</c:choose>
-				
+
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-	
-		<br/><br/>
-		<div class="text-center">
-			<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a>
-			<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a>
-			<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
-			<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
-		</div>
+
+		<br />
+		<br />
+		<c:choose>
+			<c:when test="${userType == 'investor'}">
+
+			</c:when>
+			<c:otherwise>
+				<div class="text-center">
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a> 
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a> 
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
+
+
+
 	</div>
 </body>
 </html>
