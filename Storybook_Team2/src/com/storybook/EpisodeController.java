@@ -35,8 +35,18 @@ public class EpisodeController {
 		Query query = em.createQuery("select b from Book b where b.userId = :param").setParameter("param", Integer.parseInt(userId));
 		List<Book> bookList = query.getResultList();
 		
+		em.clear();
+		
+		User user = new User();
+		Query query1 = em.createQuery("select u from User u where u.userId = :param").setParameter("param", Integer.parseInt(userId));
+	
+		user = (User) query1.getResultList().get(0);
+		
+		
 		em.close();
-
+	
+		modelAndView.addObject("userType", user.getUserType());	
+		System.out.println(user.getUserType());
 		modelAndView.addObject("userId", userId);
 		modelAndView.addObject("bookList", bookList);
 		
