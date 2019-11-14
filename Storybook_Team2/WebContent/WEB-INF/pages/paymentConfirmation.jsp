@@ -23,8 +23,7 @@
 	
 	<div class="alert alert-primary" role="alert" style="width:60%; margin:0 auto;">
 		Thank you, your payment has been successful and your funding is now confirmed. 
-		<hr>
-		<br/>
-	]</div>
+	
+	</div>
 </body>
 </html>

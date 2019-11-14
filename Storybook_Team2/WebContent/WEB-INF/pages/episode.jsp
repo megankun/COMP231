@@ -63,10 +63,21 @@
 						<th scope="row">${book.bookId}</th>
 						<td>${book.title}</td>
 						<td>${book.genre}</td>
-						<td>
-							<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a>
-							<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
-						</td>
+						
+						<c:choose>
+							<c:when test="${userType == 'investor'}"> 
+								<td>
+									<a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a>
+								</td>
+							</c:when>
+							<c:otherwise>
+								<td>
+									<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a>
+									<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
+								</td>
+							</c:otherwise>
+						</c:choose>
+				
 					</tr>
 				</c:forEach>
 			</tbody>
