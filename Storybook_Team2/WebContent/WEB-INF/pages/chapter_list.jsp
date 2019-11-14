@@ -40,13 +40,13 @@
 						</form>
 					</td>
 				</tr>
+			</c:forEach>
+			
 				<tr>
 				<td>
 					<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
 				</td>
 				</tr>
-			</c:forEach>
-			
 		</tbody>
 	</table>		
 
