@@ -22,39 +22,59 @@
 	</script>
 </head>
 <body>
-	<%@ include file="navigation_bar.jsp" %>
+<%@ include file="navigation_bar.jsp" %>
 	
-	<h2>Write Story</h2>
-	
-	Book Info <Br/>
-	userId: ${userId} / bookId: ${bookId}<br/>
-	Title: ${book.title}<br/>
-	Genre: ${book.genre}<br/>
-	
-	
-	<form action="editStory" method="post">
-		<input type="hidden" name="bookId" value="${book.bookId}"/>
-		<input type="hidden" name="userId" value="${userId}" >
-		<input type="hidden" name="storyId" value="${storyId}">
+	<div style="width:50%; margin:auto;">
+		<h3 class="text-center">Write Story</h3>
+		<br/>
+		
+		<div class="alert alert-primary" role="alert">
+		  <h4>Book Information</h4>
+			<%-- userId: ${userId} / bookId: ${bookId}<br/> --%>
+			<ul>
+		  		<li><b>Title: </b>${book.title}</li>
+		  		<li><b>Genre: </b>${book.genre}</li>
+		  	</ul>
+		</div>
+		
 		<br/><br/>
+		<form action="editStory" method="post">
+			<input type="hidden" name="bookId" value="${book.bookId}"/>
+			<input type="hidden" name="userId" value="${userId}" >
+			<input type="hidden" name="storyId" value="${storyId}">
+			
+			
+			<div class="form-group row">
+				<label for="chapterTitle" class="col-sm-2 col-form-label">Chapter Title:</label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="chapterTitle" name="chapterTitle" required value="${chapterTitle}">
+			    </div>
+		    </div>
 		
-		Chapter Title: <input type="text" name="chapterTitle" value="${chapterTitle}"/><br/><br/>
-		
-		Location: <br/><br/>
-		
-		<input type="text" name="checkedLocationIds" id="checkedLocationIds" value="${checkedLocationIds}"/>
-		<a href='#' onclick='popupLocation()'>Location List</a>
-		<br/><br/>
-		
-		Character: <br/>
-		
-		<input type="text" name="checkedCharacterIds" id="checkedCharacterIds" value="${checkedCharacterIds}"/>
-		<a href='#' onclick='popupCharacter()'>Character List</a>
-		<br/><br/>
-		
-		Note: <textarea name='note'>${note}</textarea><br/>
-		
-		<button type="submit">submit</button>
-	</form>
+			<div class="form-group row">
+				<label for="chapterTitle" class="col-sm-2 col-form-label"><a href='#' onclick='popupLocation()'>Location</a></label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="checkedLocationIds" name="checkedLocationIds" readonly required value="${checkedLocationIds}">
+			    </div>
+			    
+		    </div>
+						
+			<div class="form-group row">
+				<label for="chapterTitle" class="col-sm-2 col-form-label"><a href='#' onclick='popupCharacter()'>Character</a></label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="checkedCharacterIds" name="checkedCharacterIds" readonly required value="${checkedCharacterIds}">
+			    </div>
+		    </div>
+		    
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Note: </label>
+				<textarea class="form-control" id="note" name="note" rows="3" required >${note}</textarea>
+			</div>
+			
+			<div class="text-center">
+				<button class="btn btn-primary" type="submit">submit</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
