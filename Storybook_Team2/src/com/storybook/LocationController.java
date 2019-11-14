@@ -66,6 +66,35 @@ public class LocationController {
 	}
 	
 	
+	
+	@RequestMapping(value= "/deleteLocation")
+	public ModelAndView deleteSelectedLocation(String bookId,int userId,int locationId) {
+		ModelAndView modelAndView = new ModelAndView("location_list_update");
+		
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+
+		em.getTransaction().begin();
+		Query query1 = em.createQuery("DELETE from Location " + "where locationId = " + locationId +" and bookId="+bookId);
+		
+		query1.executeUpdate();
+		
+		em.getTransaction().commit();
+		em.clear();
+
+		em.getTransaction().begin();
+		
+		Query query = em.createQuery("select l from Location l where l.bookId = " + bookId);
+		List<Book> locationList = query.getResultList();
+		
+		em.close();
+
+		
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("locationList", locationList);
+		return modelAndView;
+	}
+	
 	@RequestMapping(value= "/newLocation", method = RequestMethod.GET)
 	public ModelAndView createNewLocation(@RequestParam String bookId, int userId) {
 		ModelAndView modelAndView = new ModelAndView("newLocation");

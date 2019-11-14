@@ -42,6 +42,7 @@
 							<input type="hidden" value="${character.bookId}" name="bookId">
 							
 							<button type="submit" class="btn btn-primary">Edit</button>
+							<a class="btn btn-primary" href="<c:url value="/deleteCharacter?userId=${userId}&bookId=${character.bookId}&characterId=${character.characterId}"/>">Delete</a>
 							
 						</form>
 					</td>

@@ -68,6 +68,36 @@ public class CharacterController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value= "/deleteCharacter")
+	public ModelAndView deleteSelectedCharacter(String bookId,int userId,int characterId) {
+		ModelAndView modelAndView = new ModelAndView("character_list_update");
+		
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+
+		em.getTransaction().begin();
+		Query query1 = em.createQuery("DELETE from BookCharacter " + "where characterId = " + characterId +" and bookId="+bookId);
+		
+		query1.executeUpdate();
+		
+		em.getTransaction().commit();
+		em.clear();
+
+		em.getTransaction().begin();
+		
+		Query query = em.createQuery("select c from BookCharacter c where c.bookId = :param").setParameter("param", Integer.parseInt(bookId));
+		List<Book> characterList = query.getResultList();
+		
+		em.close();
+
+		
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("characterList", characterList);
+		return modelAndView;
+	}
+	
+	
+	
 	@RequestMapping(value= "/editCharacter")
 	public ModelAndView editLocation(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("edit_character");
