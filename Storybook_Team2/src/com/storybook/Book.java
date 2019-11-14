@@ -2,14 +2,18 @@ package com.storybook;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
+import org.eclipse.persistence.annotations.HashPartitioning;
 
 /**
  * Entity implementation class for Entity: Book
  *
  */
 @Entity
-
 public class Book implements Serializable {
 	@Id
 	private int bookId;
@@ -17,6 +21,9 @@ public class Book implements Serializable {
 	private String title;
 	private String genre;
 	private static final long serialVersionUID = 1L;
+	
+	@OneToMany(targetEntity=Story.class, mappedBy="book",cascade=CascadeType.ALL, fetch = FetchType.LAZY) 
+	private List<Story> storyList = new ArrayList<Story>();
 
 	public Book() {
 		super();
@@ -48,6 +55,13 @@ public class Book implements Serializable {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+	
+	public List<Story> getStoryList() {
+		return storyList;
+	}
+	public void setStoryList(List<Story> storyList) {
+		this.storyList = storyList;
 	}
    
 }

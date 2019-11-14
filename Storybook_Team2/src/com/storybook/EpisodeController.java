@@ -1,6 +1,7 @@
 package com.storybook;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -323,6 +324,112 @@ public class EpisodeController {
 		modelAndView.addObject("userId", userId);
 		modelAndView.addObject("bookId", bookId);
 		
+		return modelAndView;
+	}
+	
+
+	@RequestMapping(value= "/searchStories")
+	public ModelAndView searchStories(String userId)
+	{
+		ModelAndView modelAndView = new ModelAndView("search_stories");
+
+		modelAndView.addObject("userId", userId);
+		return modelAndView;
+	}
+
+	
+	@RequestMapping(value= "/searchStories", method = RequestMethod.POST)
+	public ModelAndView search(HttpServletRequest request, HttpServletResponse response)
+	{
+		ModelAndView modelAndView = new ModelAndView("search_stories");
+		
+		String searchFilter = request.getParameter("searchFilter");
+		String searchStr = request.getParameter("searchStr");
+		
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+
+		em.getTransaction().begin();
+		
+		List<Book> bookList = new ArrayList<Book>();
+		List<Story> storyList = new ArrayList<Story>();
+		
+		Query queryForBookList;
+		if("bookTitle".equals(searchFilter)) {
+			queryForBookList = em.createQuery("select b from Book b where b.title like '%" + searchStr + "%'");
+			bookList = queryForBookList.getResultList();
+
+			
+			if(bookList.size() > 0) {
+				for(int i = 0; i < bookList.size(); i++) {
+					int bookId = bookList.get(i).getBookId();
+					
+					Query queryForStoryList = em.createQuery("select s from Story s where s.bookId = :bookId")
+							.setParameter("bookId", bookId);
+					
+					storyList = queryForStoryList.getResultList();
+					bookList.get(i).setStoryList(storyList);
+				}
+			}
+			
+		}else if("genre".equals(searchFilter)) {
+			queryForBookList = em.createQuery("select b from Book b where b.genre like '%" + searchStr + "%'");
+			bookList = queryForBookList.getResultList();
+
+			
+			if(bookList.size() > 0) {
+				for(int i = 0; i < bookList.size(); i++) {
+					int bookId = bookList.get(i).getBookId();
+					
+					Query queryForStoryList = em.createQuery("select s from Story s where s.bookId = :bookId")
+							.setParameter("bookId", bookId);
+					
+					storyList = queryForStoryList.getResultList();
+					bookList.get(i).setStoryList(storyList);
+				}
+			}
+			
+		}else if("chapterTitle".equals(searchFilter)) {
+			Query queryForStoryList = em.createQuery("select s from Story s where s.chapterTitle like '%" + searchStr + "%'");
+			storyList = queryForStoryList.getResultList();
+			
+			// get book information for each story
+			Book tempBook = new Book();
+			if(storyList.size() > 0) {
+				for(int i = 0; i < storyList.size(); i++) {
+					Query queryForBook = em.createQuery("select b from Book b where b.bookId = :bookId")
+							.setParameter("bookId", storyList.get(i).getBookId());
+					
+					tempBook = (Book)queryForBook.getResultList().get(0);
+					
+					
+				}
+				tempBook.setStoryList(storyList);
+				bookList.add(tempBook);
+			}
+		}else if("storyNote".equals(searchFilter)) {
+			Query queryForStoryList = em.createQuery("select s from Story s where s.note like '%" + searchStr + "%'");
+			storyList = queryForStoryList.getResultList();
+			
+			// get book information for each story
+			Book tempBook = new Book();
+			if(storyList.size() > 0) {
+				for(int i = 0; i < storyList.size(); i++) {
+					Query queryForBook = em.createQuery("select b from Book b where b.bookId = :bookId")
+							.setParameter("bookId", storyList.get(i).getBookId());
+					
+					tempBook = (Book)queryForBook.getResultList().get(0);
+				}
+				tempBook.setStoryList(storyList);
+				bookList.add(tempBook);
+			}
+		}
+		
+		em.clear();
+		em.close();
+		
+		modelAndView.addObject("userId", request.getParameter("userId"));
+		modelAndView.addObject("bookList", bookList);
 		return modelAndView;
 	}
 }
