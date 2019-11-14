@@ -155,8 +155,8 @@ public class EpisodeController {
 	}
 
 
-	@RequestMapping(value= "/chapterList", method = RequestMethod.POST)
-	public ModelAndView chapter(HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value= "/chapterList")
+	public ModelAndView chapter(String userId, String bookId)
 	{
 		ModelAndView modelAndView = new ModelAndView("chapter_list");
 		
@@ -164,17 +164,13 @@ public class EpisodeController {
 		em = factory.createEntityManager();
 
 		
-		int bookId = Integer.parseInt(request.getParameter("bookId"));
-
-		
-		Query chapters = em.createQuery("select s from Story s where s.bookId = :param").setParameter("param", bookId);
+		Query chapters = em.createQuery("select s from Story s where s.bookId = :param").setParameter("param", Integer.parseInt(bookId));
 		List<Story> chapterList = chapters.getResultList();
 		
 		em.close();
 		
 		modelAndView.addObject("chapterList", chapterList);
 		modelAndView.addObject("bookId", bookId);
-		int userId = Integer.parseInt(request.getParameter("userId"));
 		modelAndView.addObject("userId", userId);
 		
 		// return to list of stories for that book (Megan)

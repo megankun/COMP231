@@ -13,46 +13,67 @@
 		
 	<script>
 		function popupLocation() {
-			window.open("<c:url value='/locationList?bookId=${bookId}'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
+			window.open("<c:url value='/locationList?bookId=${bookId}&popup=yes'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
 		}
 		
 		function popupCharacter() {
-			window.open("<c:url value='/characterList?bookId=${bookId}'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
+			window.open("<c:url value='/characterList?bookId=${bookId}&popup=yes'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
 		}
 	</script>
 </head>
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h3 class="text-center">Write Story</h3>
-	
-	Book Info <Br/>
-	userId: ${userId} / bookId: ${bookId}<br/>
-	Title: ${book.title}<br/>
-	Genre: ${book.genre}<br/>
-	
-	<form action="addStory" method="post">
-		<input type="hidden" name="bookId" value="${book.bookId}"/>
-		<input type="hidden" name="userId" value="${userId}" >
+	<div style="width:50%; margin:auto;">
+		<h3 class="text-center">Write Story</h3>
+		<br/>
+		
+		<div class="alert alert-primary" role="alert">
+		  <h4>Book Information</h4>
+			<%-- userId: ${userId} / bookId: ${bookId}<br/> --%>
+			<ul>
+		  		<li><b>Title: </b>${book.title}</li>
+		  		<li><b>Genre: </b>${book.genre}</li>
+		  	</ul>
+		</div>
+		
 		<br/><br/>
+		<form action="addStory" method="post">
+			<input type="hidden" name="bookId" value="${book.bookId}"/>
+			<input type="hidden" name="userId" value="${userId}" >
+			
+			
+			<div class="form-group row">
+				<label for="chapterTitle" class="col-sm-2 col-form-label">Chapter Title:</label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="chapterTitle" name="chapterTitle" required>
+			    </div>
+		    </div>
 		
-		Chapter Title: <input type="text" name="chapterTitle"/><br/><br/>
-		
-		Location: <br/><br/>
-		
-		<input type="text" name="checkedLocationIds" id="checkedLocationIds"/>
-		<a href='#' onclick='popupLocation()'>Location List</a>
-		<br/><br/>
-		
-		Character: <br/>
-		
-		<input type="text" name="checkedCharacterIds" id="checkedCharacterIds"/>
-		<a href='#' onclick='popupCharacter()'>Character List</a>
-		<br/><br/>
-		
-		Note: <textarea name='note'></textarea><br/>
-		
-		<button type="submit">submit</button>
-	</form>
+			<div class="form-group row">
+				<label for="chapterTitle" class="col-sm-2 col-form-label"><a href='#' onclick='popupLocation()'>Location</a></label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="checkedLocationIds" name="checkedLocationIds" readonly required>
+			    </div>
+			    
+		    </div>
+						
+			<div class="form-group row">
+				<label for="chapterTitle" class="col-sm-2 col-form-label"><a href='#' onclick='popupCharacter()'>Character</a></label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="checkedCharacterIds" name="checkedCharacterIds" readonly required>
+			    </div>
+		    </div>
+		    
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Note: </label>
+				<textarea class="form-control" id="note" name="note" rows="3" required></textarea>
+			</div>
+			
+			<div class="text-center">
+				<button class="btn btn-primary" type="submit">submit</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

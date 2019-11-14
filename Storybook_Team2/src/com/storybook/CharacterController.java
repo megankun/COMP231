@@ -24,8 +24,13 @@ public class CharacterController {
 	private static EntityManager em;
 	
 	@RequestMapping(value= "/characterList")
-	public ModelAndView characterList(String bookId) {
-		ModelAndView modelAndView = new ModelAndView("character_list");
+	public ModelAndView characterList(String bookId, String popup) {
+		ModelAndView modelAndView = null;
+
+		if("yes".equals(popup))
+			modelAndView = new ModelAndView("popup_character_list");
+		else
+			modelAndView = new ModelAndView("character_list");
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();

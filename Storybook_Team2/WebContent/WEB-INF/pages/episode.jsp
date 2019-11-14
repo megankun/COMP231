@@ -12,6 +12,32 @@
 	<link href="<%=request.getContextPath()%>/css/naviCss.css" rel="stylesheet" type="text/css"/>	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 		
+	<script>
+		function selectedBookId(opt) {
+			var ids = document.getElementsByName('selectedBookId');
+			var selectedId;
+			
+			for(var i = 0; i < ids.length; i++) {
+			   if(ids[i].checked)
+				   selectedId = ids[i].value;
+			 }
+			
+			if(selectedId == null){
+				alert("Please select a book !");
+			}else{
+				if(opt == 1) { // View Characters
+					window.open("<c:url value='/characterUpdateList'/>?userId=${userId}&bookId=" + selectedId, "_self");
+				}else if(opt == 2) { // View Locations
+					window.open("<c:url value='/updatedLocation'/>?userId=${userId}&bookId=" + selectedId, "_self");
+				}else if(opt == 3) { // Create New Character
+					window.open("<c:url value='/newCharacter'/>?userId=${userId}&bookId=" + selectedId, "_self");				
+				}else if(opt == 4) { // Create New Location
+					window.open("<c:url value='/newLocation'/>?userId=${userId}&bookId=" + selectedId, "_self");				
+				}
+			}
+		}
+		
+	</script>
 </head>
 <body>
 	<%@ include file="navigation_bar.jsp" %>
@@ -21,6 +47,7 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th scope="col"></th>
 				<th scope="col">#</th>
 				<th scope="col">Title</th>
 				<th scope="col">Genre</th>
@@ -30,33 +57,25 @@
 		<tbody>
 			<c:forEach var="book" items="${bookList}">
 				<tr>
+					<td><input type="radio" id="selectedBookId" name="selectedBookId" value="${book.bookId}"></td>
 					<th scope="row">${book.bookId}</th>
 					<td>${book.title}</td>
 					<td>${book.genre}</td>
 					<td>
-						<form action="chapterList" method="post">
-						<input type="hidden" value="${book.bookId}" name="bookId">
-						<input type="hidden" value="${userId}" name="userId">
-						<button type="submit" class="btn btn-primary">View Stories</button>
-						<a class="btn btn-primary" href="<c:url value="/characterUpdateList?userId=${userId}&bookId=${book.bookId}"/>">View Characters</a>
-						
-						<a class="btn btn-primary" href="<c:url value="/updatedLocation?userId=${userId}&bookId=${book.bookId}"/>">View Locations</a>
-						
-						</form>
-						<br>
-						<a class="btn btn-primary" href="<c:url value="/newCharacter?userId=${userId}&bookId=${book.bookId}"/>">Create New Character</a>
-						<a class="btn btn-primary" href="<c:url value="/newLocation?userId=${userId}&bookId=${book.bookId}"/>">Create New Location</a>
-				
-						<br><br>
+						<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a>
 						<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
-				
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 
-
-	
+	<br/><br/>
+	<div class="text-center">
+		<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a>
+		<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a>
+		<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
+		<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+	</div>
 </body>
 </html>

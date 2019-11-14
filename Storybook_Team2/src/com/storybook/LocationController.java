@@ -21,8 +21,13 @@ public class LocationController {
 	private static EntityManager em;
 
 	@RequestMapping(value= "/locationList")
-	public ModelAndView locationList(String bookId) {
-		ModelAndView modelAndView = new ModelAndView("location_list");
+	public ModelAndView locationList(String bookId, String popup) {		
+		ModelAndView modelAndView = null;
+		
+		if("yes".equals(popup))
+			modelAndView = new ModelAndView("popup_location_list");
+		else
+			modelAndView = new ModelAndView("location_list");
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
