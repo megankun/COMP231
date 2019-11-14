@@ -42,40 +42,42 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h1 class="text-center">Write story for your book !</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col"></th>
-				<th scope="col">#</th>
-				<th scope="col">Title</th>
-				<th scope="col">Genre</th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="book" items="${bookList}">
+	<div class="container">
+		<h3 class="text-center">Write story for your book !</h3>
+	
+		<table class="table">
+			<thead>
 				<tr>
-					<td><input type="radio" id="selectedBookId" name="selectedBookId" value="${book.bookId}"></td>
-					<th scope="row">${book.bookId}</th>
-					<td>${book.title}</td>
-					<td>${book.genre}</td>
-					<td>
-						<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a>
-						<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
-					</td>
+					<th scope="col"></th>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Genre</th>
+					<th scope="col"></th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-	<br/><br/>
-	<div class="text-center">
-		<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a>
-		<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a>
-		<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
-		<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+			</thead>
+			<tbody>
+				<c:forEach var="book" items="${bookList}">
+					<tr>
+						<td><input type="radio" id="selectedBookId" name="selectedBookId" value="${book.bookId}"></td>
+						<th scope="row">${book.bookId}</th>
+						<td>${book.title}</td>
+						<td>${book.genre}</td>
+						<td>
+							<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a>
+							<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	
+		<br/><br/>
+		<div class="text-center">
+			<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a>
+			<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a>
+			<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
+			<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+		</div>
 	</div>
 </body>
 </html>
