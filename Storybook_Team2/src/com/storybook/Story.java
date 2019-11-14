@@ -20,7 +20,11 @@ public class Story implements Serializable {
 	private String created_at;
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name="bookId")
+	private Book book;
+	
 	public Story() {
 		super();
 	}   
@@ -59,4 +63,12 @@ public class Story implements Serializable {
 	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
+	
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
+	
 }
