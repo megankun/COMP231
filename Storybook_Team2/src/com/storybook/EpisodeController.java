@@ -30,19 +30,27 @@ public class EpisodeController {
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
+		
+		List<Book> bookList = new ArrayList<Book>();
 
 		em.getTransaction().begin();
-
-		Query query = em.createQuery("select b from Book b where b.userId = :param").setParameter("param", Integer.parseInt(userId));
-		List<Book> bookList = query.getResultList();
 		
-		em.clear();
-		
+		// Get user from DB
 		User user = new User();
 		Query query1 = em.createQuery("select u from User u where u.userId = :param").setParameter("param", Integer.parseInt(userId));
 	
 		user = (User) query1.getResultList().get(0);
 		
+		em.clear();
+		
+		// check user type
+		if("Writer".equals(user.getUserType())) {
+			Query query = em.createQuery("select b from Book b where b.userId = :param").setParameter("param", Integer.parseInt(userId));
+			bookList = query.getResultList();
+		}else { // Investor & Designer (will give them permission to access book or not?)
+			Query query = em.createQuery("select b from Book b");
+			bookList = query.getResultList();
+		}
 		
 		em.close();
 	
