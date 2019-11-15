@@ -80,7 +80,7 @@
 		<br />
 		<br />
 		<c:choose>
-			<c:when test="${userType == 'investor'}">
+			<c:when test="${userType == 'Investor'}">
 
 			</c:when>
 			<c:otherwise>
