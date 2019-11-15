@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 public class Payment{
 
+	//Class Variables
 	@Id
 	private int paymentId;
 	private int userId;

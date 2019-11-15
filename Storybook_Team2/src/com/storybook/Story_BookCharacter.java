@@ -19,18 +19,20 @@ public class Story_BookCharacter implements Serializable {
 	public Story_BookCharacter() {
 		super();
 	}   
-	public int getStoryId() {
+
+	public int getStoryId() {				//Method to Retrieve Story ID
 		return this.storyId;
 	}
 
-	public void setStoryId(int storyId) {
+	public void setStoryId(int storyId) {	//Method to Set Story ID
 		this.storyId = storyId;
-	}   
-	public int getCharacterId() {
+	}   		
+
+	public int getCharacterId() {			//Method to Retrieve Character ID
 		return this.characterId;
 	}
 
-	public void setCharacterId(int characterId) {
+	public void setCharacterId(int characterId) {	//Method to Set Character ID
 		this.characterId = characterId;
 	}
    
