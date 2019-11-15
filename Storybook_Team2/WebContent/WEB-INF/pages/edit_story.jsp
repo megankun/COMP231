@@ -12,20 +12,20 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
 		
 	<script>
-		function popupLocation() {
-			window.open("<c:url value='/locationList?bookId=${bookId}'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
-		}
-		
-		function popupCharacter() {
-			window.open("<c:url value='/characterList?bookId=${bookId}'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
-		}
+	function popupLocation() {
+		window.open("<c:url value='/locationList?bookId=${bookId}&popup=yes'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
+	}
+	
+	function popupCharacter() {
+		window.open("<c:url value='/characterList?bookId=${bookId}&popup=yes'/>", "_blank", "scrollbars=1,resizable=1,height=700,width=650");
+	}
 	</script>
 </head>
 <body>
 <%@ include file="navigation_bar.jsp" %>
 	
 	<div style="width:50%; margin:auto;">
-		<h3 class="text-center">Write Story</h3>
+		<h3 class="text-center">Edit Story</h3>
 		<br/>
 		
 		<div class="alert alert-primary" role="alert">
@@ -42,6 +42,7 @@
 			<input type="hidden" name="bookId" value="${book.bookId}"/>
 			<input type="hidden" name="userId" value="${userId}" >
 			<input type="hidden" name="storyId" value="${storyId}">
+			<input type="hidden" name="createdAt" value="${createdAt}" >
 			
 			
 			<div class="form-group row">
@@ -54,7 +55,8 @@
 			<div class="form-group row">
 				<label for="chapterTitle" class="col-sm-2 col-form-label"><a href='#' onclick='popupLocation()'>Location</a></label>
 			    <div class="col-sm-10">
-			    	<input type="text" class="form-control" id="checkedLocationIds" name="checkedLocationIds" readonly required value="${checkedLocationIds}">
+			    	<input type="text" class="form-control" id="checkedLocationIds" name="checkedLocationIds" readonly required 
+			    	value="${checkedLocationIds}" >
 			    </div>
 			    
 		    </div>
@@ -62,7 +64,8 @@
 			<div class="form-group row">
 				<label for="chapterTitle" class="col-sm-2 col-form-label"><a href='#' onclick='popupCharacter()'>Character</a></label>
 			    <div class="col-sm-10">
-			    	<input type="text" class="form-control" id="checkedCharacterIds" name="checkedCharacterIds" readonly required value="${checkedCharacterIds}">
+			    	<input type="text" class="form-control" id="checkedCharacterIds" name="checkedCharacterIds" readonly required 
+			    	value="${checkedCharacterIds}">
 			    </div>
 		    </div>
 		    

@@ -211,6 +211,7 @@ public class EpisodeController {
 		{
 			modelAndView.addObject("chapterTitle", chapter.getChapterTitle());
 			modelAndView.addObject("note", chapter.getNote());
+			modelAndView.addObject("createdAt", chapter.getCreated_at());
 		}
 		
 		Query characters = em.createQuery("select c from Story_BookCharacter c where c.storyId = :storyId")
@@ -256,7 +257,6 @@ public class EpisodeController {
 	@RequestMapping(value= "/editStory", method = RequestMethod.POST)
 	public ModelAndView editStory(HttpServletRequest request, HttpServletResponse response)
 	{
-		
 		ModelAndView modelAndView = new ModelAndView("chapter_list");
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
@@ -265,15 +265,15 @@ public class EpisodeController {
 		// Select Story Id
 		int storyId = Integer.parseInt(request.getParameter("storyId"));
 
-		
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		String chapterTitle = request.getParameter("chapterTitle");
 		String note = request.getParameter("note");
 
 		String[] tempLocationIdsArray = request.getParameter("checkedLocationIds").split(",");
 		String[] tempCharacterIdsArray = request.getParameter("checkedCharacterIds").split(",");
-
 		
+		String createdAt = request.getParameter("createdAt");
+
 		// update Story
 		em.getTransaction().begin();
 		
@@ -283,46 +283,76 @@ public class EpisodeController {
 		story.setNote(note);
 		story.setBookId(bookId);
 		story.setStoryId(storyId);
+		story.setCreated_at(createdAt);
 
 		em.merge(story);
-
 		em.getTransaction().commit();
 
 		// update Story_Location
 		em.clear();          
         em.getTransaction().begin();
         
+		Query locations = em.createQuery("select l from Story_Location l where l.storyId = :storyId")
+				.setParameter("storyId", storyId);
+		List<Story_Location> locationList = locations.getResultList();
+		
+		for (Story_Location loc : locationList)
+		{
+			if (em.contains(loc))
+			{
+				em.remove(loc);
+				em.getTransaction().commit();
+				em.clear();          
+		        em.getTransaction().begin();
+			}
+		}
+		
+		Query characters = em.createQuery("select c from Story_BookCharacter c where c.storyId = :storyId")
+				.setParameter("storyId", storyId);
+		List<Story_BookCharacter> characterList = characters.getResultList();
+		
+		for (Story_BookCharacter chara : characterList)
+		{
+			if (em.contains(chara))
+			{
+				em.remove(chara);
+				em.getTransaction().commit();
+				em.clear();          
+		        em.getTransaction().begin();
+			}
+		}
+		
+
+		em.clear();          
+        //em.getTransaction().begin();
+		
 		for(int i = 0; i < tempLocationIdsArray.length; i++) {
 			Story_Location story_location = new Story_Location();
 			story_location.setStoryId(storyId);
 			story_location.setLocationId(Integer.parseInt(tempLocationIdsArray[i]));
-
-			em.merge(story_location);
 			
+			em.persist(story_location);
 			em.getTransaction().commit();
-
-			
-			em.clear();          
-	        em.getTransaction().begin();
+			em.clear();      
+	        em.getTransaction().begin();     
 		}
 		
 		// update Story_BookCharacter
-		em.clear();          
-        
+		em.clear();      
+        //em.getTransaction().begin();
+
+
 		for(int i = 0; i < tempCharacterIdsArray.length; i++) {
 			Story_BookCharacter story_bookCharacter = new Story_BookCharacter();
 			story_bookCharacter.setStoryId(storyId);
 			story_bookCharacter.setCharacterId(Integer.parseInt(tempCharacterIdsArray[i]));
 
-			em.merge(story_bookCharacter);
-			
+			em.persist(story_bookCharacter);
 			em.getTransaction().commit();
-
-			
 			em.clear();          
 	        em.getTransaction().begin();
 		}
-		
+
 		Query chapters = em.createQuery("select s from Story s where s.bookId = :param").setParameter("param", bookId);
 		List<Story> chapterList = chapters.getResultList();
 		
@@ -338,6 +368,10 @@ public class EpisodeController {
 	}
 	
 
+	
+	
+	
+	
 	@RequestMapping(value= "/searchStories")
 	public ModelAndView searchStories(String userId)
 	{
@@ -440,6 +474,17 @@ public class EpisodeController {
 		
 		modelAndView.addObject("userId", request.getParameter("userId"));
 		modelAndView.addObject("bookList", bookList);
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value= "/toAddBook", method = RequestMethod.POST)
+	public ModelAndView toAddBook(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("add_book");
+		
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		modelAndView.addObject("userId", userId);
+		
 		return modelAndView;
 	}
 }
