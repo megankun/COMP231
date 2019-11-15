@@ -21,7 +21,7 @@ public class UserController {
 	@RequestMapping(value= "/login", params = "Sign In", method = RequestMethod.POST)
 	// method to process login request
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView view = new ModelAndView("tutorial");
+		ModelAndView view = new ModelAndView("main");
 		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
