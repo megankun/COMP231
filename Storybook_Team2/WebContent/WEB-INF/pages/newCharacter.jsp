@@ -8,6 +8,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="navigation_bar.jsp" %>
+	
 	<meta charset="UTF-8">
 	<title><c:choose><c:when test="${title != null}">${title}</c:when><c:otherwise>Sign Up</c:otherwise></c:choose>
 	</title>

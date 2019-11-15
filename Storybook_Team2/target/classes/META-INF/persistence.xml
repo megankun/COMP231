@@ -8,13 +8,15 @@
 		<class>com.storybook.Story</class>
 		<class>com.storybook.Story_BookCharacter</class>
 		<class>com.storybook.Story_Location</class>
+		<class>com.storybook.Payment</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/team2?serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="11633477" />
+			<property name="javax.persistence.jdbc.password" value="1q2w3e4r!@" />
 			<!-- EclipseLink should create the database schema automatically -->
 			<property name="eclipselink.ddl-generation"
 				value="create-tables" />

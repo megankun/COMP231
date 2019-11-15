@@ -13,6 +13,7 @@
 
 </head>
 <body>
+	<%@ include file="navigation_bar.jsp" %>
 	
 	<h3>Character List</h3>
 	
