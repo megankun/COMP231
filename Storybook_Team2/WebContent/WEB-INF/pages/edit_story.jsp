@@ -42,6 +42,7 @@
 			<input type="hidden" name="bookId" value="${book.bookId}"/>
 			<input type="hidden" name="userId" value="${userId}" >
 			<input type="hidden" name="storyId" value="${storyId}">
+			<input type="hidden" name="createdAt" value="${createdAt}" >
 			
 			
 			<div class="form-group row">
