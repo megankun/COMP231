@@ -37,13 +37,16 @@
 							<input type="hidden" value="${userId}" name="userId">
 							<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
 							<button type="submit" class="btn btn-primary">Edit</button>
-							<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
-			
 						</form>
 					</td>
 				</tr>
 			</c:forEach>
 			
+				<tr>
+				<td>
+					<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
+				</td>
+				</tr>
 		</tbody>
 	</table>		
 

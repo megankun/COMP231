@@ -64,7 +64,7 @@
 						<td>${book.genre}</td>
 
 						<c:choose>
-							<c:when test="${userType == 'investor'}">
+							<c:when test="${userType == 'Investor'}">
 								<td><a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a></td>
 							</c:when>
 							<c:otherwise>
@@ -80,7 +80,7 @@
 		<br />
 		<br />
 		<c:choose>
-			<c:when test="${userType == 'investor'}">
+			<c:when test="${userType == 'Investor'}">
 
 			</c:when>
 			<c:otherwise>
@@ -89,6 +89,13 @@
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a> 
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+				</div>
+				<br>
+				<div class="text-center">
+					<form action="toAddBook" method="post">
+						<input type="hidden" value="${userId}" name="userId">
+						<button type="submit" class="btn btn-primary">Create New Book</button>
+					</form>
 				</div>
 			</c:otherwise>
 		</c:choose>
