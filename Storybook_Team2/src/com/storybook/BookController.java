@@ -1,8 +1,5 @@
 package com.storybook;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,8 +22,15 @@ public class BookController {
 	private static EntityManager em;
 
 	
+	/**
+	 * POST response to add a new book to the database
+	 * @param request
+	 * @param response
+	 * @return episode view
+	 */
 	@RequestMapping(value= "/addBook", method = RequestMethod.POST)
 	public ModelAndView addBook(HttpServletRequest request, HttpServletResponse response) {
+		
 		ModelAndView modelAndView = new ModelAndView("episode");
 		
 		int userId = Integer.parseInt(request.getParameter("userId"));
@@ -34,12 +38,11 @@ public class BookController {
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
 
-		
+		// Get the book title and genre from the view
 		String title = request.getParameter("bookTitle");
 		String genre = request.getParameter("genre");
 
-		
-		// Add Story
+		// Add Book
 		em.getTransaction().begin();
 		
 		Book book = new Book();
@@ -53,16 +56,18 @@ public class BookController {
 		em.getTransaction().commit();
 
 		em.clear();
-
+		
+		// Get list of books to display in the next view
 		Query query = em.createQuery("select b from Book b where b.userId = :param").setParameter("param", userId);
 		List<Book> bookList = query.getResultList();
 		
 		em.clear();
 		
+		// Get the user type to display the correct objects in the next view
 		User user = new User();
-		Query query1 = em.createQuery("select u from User u where u.userId = :param").setParameter("param", userId);
+		Query userQuery = em.createQuery("select u from User u where u.userId = :param").setParameter("param", userId);
 	
-		user = (User) query1.getResultList().get(0);
+		user = (User) userQuery.getResultList().get(0);
 		
 		em.close();
 	
@@ -73,8 +78,8 @@ public class BookController {
 		
 		return modelAndView;
 	}
-
-
+	
+	
 }
 
 	
