@@ -12,17 +12,17 @@ public class Payment{
 
 	//Class Variables
 	@Id
-	private int paymentId;
-	private int userId;
-	private int bookId;
-	private String cardType;
-	private String nameOnCard;
-	private String cardNumber;
-	private String expiryDate;
-	private String cvc;
-	private String country;
-	private String zipCode;
-	private String totalPrice;
+	private int paymentId;							//Payment ID Number
+	private int userId;								//User ID Number
+	private int bookId;								//Book ID Number
+	private String cardType;						//Card Type (Debit/Credit)
+	private String nameOnCard;						//Name of Card Holder
+	private String cardNumber;						//Card Number
+	private String expiryDate;						//Credit Card Expiry Date
+	private String cvc;								//Card Verification Number
+	private String country;							//Card Country
+	private String zipCode;							//Zip Code
+	private String totalPrice;						//Price
 
 	public Payment() {
 		super();
