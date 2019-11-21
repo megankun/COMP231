@@ -32,6 +32,8 @@
 					window.open("<c:url value='/newCharacter'/>?userId=${userId}&bookId=" + selectedId, "_self");				
 				}else if(opt == 4) { // Create New Location
 					window.open("<c:url value='/newLocation'/>?userId=${userId}&bookId=" + selectedId, "_self");				
+				}else if(opt == 5) { // Check Final Draft
+					window.open("<c:url value='/checkfinaldraft'/>?userId=${userId}&bookId=" + selectedId, "_self");				
 				}
 			}
 		}
@@ -89,6 +91,7 @@
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a> 
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+                                                                                <a href='#' class="btn btn-primary" onclick='selectedBookId(5)'>Check Final Draft</a>
 				</div>
 				<br>
 				<div class="text-center">
