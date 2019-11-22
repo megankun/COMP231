@@ -168,6 +168,48 @@ public class BookController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value= "/checkfinaldraft", method = RequestMethod.GET)
+	public ModelAndView checkFinalDraft(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("bookfinaldraft");
+		
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		int bookId = Integer.parseInt(request.getParameter("bookId"));
+		
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+		em.getTransaction().begin();
+		
+		//Search book title and genre
+		Query queryForBook = em.createQuery("select b from Book b where b.bookId = :bookId")
+				.setParameter("bookId", bookId);
+		Book book = (Book)queryForBook.getResultList().get(0);
+			
+		//Search all the locations of the book
+		Query queryForLocation = em.createQuery("select l from Location l where l.bookId = :bookId")
+				.setParameter("bookId", bookId);
+		List<Location> locations = queryForLocation.getResultList();
+				
+		//Search all the characters of the book
+		Query queryForCharacter = em.createQuery("select b from BookCharacter b where b.bookId = :bookId")
+				.setParameter("bookId", bookId);
+		List<BookCharacter> characters = queryForCharacter.getResultList();
+		
+		//Search all the stories of the book and merge the notes together
+		Query queryForStory = em.createQuery("select s from Story s where s.bookId = :bookId")
+				.setParameter("bookId", bookId);
+		List<Story> stories = queryForStory.getResultList();
+		
+	    em.clear();
+		em.close();
+	
+		modelAndView.addObject("book", book);	
+		modelAndView.addObject("locations", locations);
+		modelAndView.addObject("characters", characters);
+		modelAndView.addObject("stories", stories);
+		
+		return modelAndView;
+	}
 }
 
 	

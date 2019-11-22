@@ -32,6 +32,8 @@
 					window.open("<c:url value='/newCharacter'/>?userId=${userId}&bookId=" + selectedId, "_self");				
 				}else if(opt == 4) { // Create New Location
 					window.open("<c:url value='/newLocation'/>?userId=${userId}&bookId=" + selectedId, "_self");				
+				}else if(opt == 5) { // Check Final Draft
+					window.open("<c:url value='/checkfinaldraft'/>?userId=${userId}&bookId=" + selectedId, "_self");				
 				}
 			}
 		}
@@ -68,7 +70,11 @@
 								<td><a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a></td>
 							</c:when>
 							<c:otherwise>
-								<td><a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> <a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a></td>
+								<td>
+								<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> 
+								<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
+								<a class="btn btn-warning" href="<c:url value="/editBook?userId=${userId}&bookId=${book.bookId}"/>">Edit Book Details</a>
+								</td>
 							</c:otherwise>
 						</c:choose>
 
@@ -89,6 +95,7 @@
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a> 
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(5)'>Check Final Draft</a>
 				</div>
 				<br>
 				<div class="text-center">
