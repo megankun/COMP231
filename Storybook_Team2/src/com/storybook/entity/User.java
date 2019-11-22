@@ -1,4 +1,4 @@
-package com.storybook;
+package com.storybook.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

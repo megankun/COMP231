@@ -1,4 +1,4 @@
-package com.storybook;
+package com.storybook.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

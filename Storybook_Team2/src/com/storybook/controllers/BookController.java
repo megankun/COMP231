@@ -1,4 +1,4 @@
-package com.storybook;
+package com.storybook.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.storybook.entity.Book;
+import com.storybook.entity.BookCharacter;
+import com.storybook.entity.Location;
+import com.storybook.entity.User;
 
 
 
