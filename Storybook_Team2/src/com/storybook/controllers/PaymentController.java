@@ -32,6 +32,7 @@ public class PaymentController {
 		return modelAndView;
 	}
 	
+	//Method to Handle Payment Transactions
 	@RequestMapping(value= "/payment", method = RequestMethod.POST)
 	public ModelAndView createNewCharacteforBook(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("paymentConfirmation");

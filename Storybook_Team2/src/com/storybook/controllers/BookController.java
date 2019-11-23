@@ -108,13 +108,6 @@ public class BookController {
 				.setParameter("bookId", bookId);
 		List<BookCharacter> characters = queryForCharacter.getResultList();
 		
-		//Search all the stories of the book and merge the notes together
-		/*
-		 * Query queryForStory =
-		 * em.createQuery("select s from Story s where s.bookId = :bookId")
-		 * .setParameter("bookId", bookId); List<Story> stories =
-		 * queryForStory.getResultList();
-		 */
 		
 	    em.clear();
 		em.close();

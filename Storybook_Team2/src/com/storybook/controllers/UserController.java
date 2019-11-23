@@ -62,6 +62,7 @@ public class UserController {
 		return "signUp";
 	}
 	
+	//Method to Manage User Sign Up
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ModelAndView SuccessSignUp(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -160,7 +161,7 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	
+	//Method to Edit User Account Information
 	@RequestMapping(value = "/edituserinfo", method = RequestMethod.POST)
 	public ModelAndView editUserAccountInfo(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("accountinfo");
