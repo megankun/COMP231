@@ -1,4 +1,4 @@
-package com.storybook.entity;
+package com.storybook;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,8 +19,6 @@ public class User {
 	private String firstName;		//User First Name
 	private String lastName;		//User Surname
 	private String phoneNumber;		//User Phone Number
-	private String AboutUser;		//User About Me Details
-	private double earnings;			//Total Payments Received
 
 	public int getUserId() {					//Method to Retrieve User ID
 		return this.userId;
@@ -71,22 +69,6 @@ public class User {
 
 	public void setPhoneNumber(String phoneNumber) {	//Method to Set User Phone No.
 		this.phoneNumber = phoneNumber;
-	}
-
-	public String getAboutUser() {					//Method to Retrieve About Me Details
-		return AboutUser;
-	}
-
-	public void setAboutUser(String aboutUser) {	//Method to set About Me Details
-		AboutUser = aboutUser;
-	}
-	
-	public double getEarnings() {
-		return earnings;
-	}
-	
-	public void setEarnings(double earnings) {
-		this.earnings = earnings;
 	}
    
 }

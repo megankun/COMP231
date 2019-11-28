@@ -12,7 +12,6 @@
 
 </head>
 <body>	
-volunteer
 	<br>
 	<h3> Location List</h3>
 	<br>

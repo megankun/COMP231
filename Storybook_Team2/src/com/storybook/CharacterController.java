@@ -1,4 +1,4 @@
-package com.storybook.controllers;
+package com.storybook;
 
 import java.util.List;
 
@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.storybook.entity.Book;
-import com.storybook.entity.BookCharacter;
 
 
 
@@ -71,7 +68,6 @@ public class CharacterController {
 		return modelAndView;
 	}
 	
-	//Method to Delete Story Character
 	@RequestMapping(value= "/deleteCharacter")
 	public ModelAndView deleteSelectedCharacter(String bookId,int userId,int characterId) {
 		ModelAndView modelAndView = new ModelAndView("character_list_update");
@@ -101,7 +97,7 @@ public class CharacterController {
 	}
 	
 	
-	//Method to Edit Character Details
+	
 	@RequestMapping(value= "/editCharacter")
 	public ModelAndView editLocation(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("edit_character");
@@ -123,7 +119,6 @@ public class CharacterController {
 		
 		return modelAndView;
 	}
-
 	@RequestMapping(value= "/newCharacter", method = RequestMethod.GET)
 	public ModelAndView createNewCharacter(@RequestParam String bookId, int userId) {
 		ModelAndView modelAndView = new ModelAndView("newCharacter");
@@ -132,8 +127,6 @@ public class CharacterController {
 		modelAndView.addObject("bookId", bookId);
 		return modelAndView;
 	}
-
-	//Method to Add New Story Character
 	@RequestMapping(value= "/newCharacter", method = RequestMethod.POST)
 	public ModelAndView createNewCharacteforBook(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("character_list_update");

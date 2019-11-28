@@ -1,4 +1,4 @@
-package com.storybook.controllers;
+package com.storybook;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.storybook.entity.Payment;
 
 
 @Controller
@@ -32,7 +30,6 @@ public class PaymentController {
 		return modelAndView;
 	}
 	
-	//Method to Handle Payment Transactions
 	@RequestMapping(value= "/payment", method = RequestMethod.POST)
 	public ModelAndView createNewCharacteforBook(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("paymentConfirmation");
