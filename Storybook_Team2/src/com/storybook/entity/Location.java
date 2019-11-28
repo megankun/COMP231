@@ -1,4 +1,4 @@
-package com.storybook;
+package com.storybook.entity;
 
 import java.io.Serializable;
 import java.lang.String;

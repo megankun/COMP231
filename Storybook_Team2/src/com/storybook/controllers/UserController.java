@@ -1,4 +1,4 @@
-package com.storybook;
+package com.storybook.controllers;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -6,11 +6,14 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.storybook.entity.User;
 
 
 @Controller
@@ -60,6 +63,7 @@ public class UserController {
 		return "signUp";
 	}
 	
+	//Method to Manage User Sign Up
 	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
 	public ModelAndView SuccessSignUp(HttpServletRequest request, HttpServletResponse response)
 	{
@@ -158,7 +162,7 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	
+	//Method to Edit User Account Information
 	@RequestMapping(value = "/edituserinfo", method = RequestMethod.POST)
 	public ModelAndView editUserAccountInfo(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("accountinfo");
@@ -179,6 +183,90 @@ public class UserController {
 		cs.getTransaction().commit();
 		
 		modelAndView.addObject("user", user);
+		modelAndView.addObject("userId", request.getParameter("userId"));
+		
+	    return modelAndView;	
+		
+	}
+	
+	@RequestMapping(value= "/userDetailsList")
+	public ModelAndView userDetailsList(String userId) {
+		ModelAndView modelAndView = new ModelAndView("user_list");
+
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		cs = factory.createEntityManager();
+		cs.getTransaction().begin();
+
+		Query query = cs.createQuery("select c from User c ");
+		List<User> userList = query.getResultList();
+		cs.getTransaction().commit();
+		cs.close();
+		
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("userList", userList);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/userAboutMeInfo", method = RequestMethod.GET)
+	public ModelAndView userAboutMeInfo(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("about_me");
+		
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		int selectedUserId = Integer.parseInt(request.getParameter("selectedUserId"));
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		cs = factory.createEntityManager();
+		Query query = cs.createQuery("select c from User c where c.userId = '" + selectedUserId + "'");
+		User user = null;
+		if(!query.getResultList().isEmpty()) {
+			user = (User) query.getResultList().get(0);
+				
+		}
+	
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("selectedUserId", selectedUserId);
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/userAboutMeEdit", method = RequestMethod.GET)
+	public ModelAndView userAboutMeEdit(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("edit_aboutme");
+		
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		cs = factory.createEntityManager();
+		Query query = cs.createQuery("select c from User c where c.userId = '" + userId + "'");
+		User user = null;
+		if(!query.getResultList().isEmpty()) {
+			user = (User) query.getResultList().get(0);
+		}
+	
+		modelAndView.addObject("aboutUser", user.getAboutUser());
+		modelAndView.addObject("user", user);
+		modelAndView.addObject("userId", userId);
+		
+		return modelAndView;
+	}	
+	
+	@RequestMapping(value = "/editAboutMeinfo", method = RequestMethod.POST)
+	public ModelAndView editAboutMeinfo(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView modelAndView = new ModelAndView("user_list");
+		
+		User user = new User();
+	
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		cs = factory.createEntityManager();
+		cs.getTransaction().begin();
+		user=cs.find(User.class, Integer.parseInt(request.getParameter("userId")));
+		user.setAboutUser(request.getParameter("aboutUser"));
+		cs.persist(user);
+		cs.getTransaction().commit();
+		Query query = cs.createQuery("select c from User c ");
+		List<User> userList = query.getResultList();
+		cs.close();
+		
+		modelAndView.addObject("userList", userList);
 		modelAndView.addObject("userId", request.getParameter("userId"));
 		
 	    return modelAndView;	
