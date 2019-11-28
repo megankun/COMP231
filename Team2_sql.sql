@@ -164,3 +164,12 @@ DELETE FROM Story WHERE storyId >= 0;
 SELECT * FROM Story;
 SELECT * FROM Story_Location;
 SELECT * FROM Story_BookCharacter;
+
+
+
+---------------------------------------------------- Megan (2019-11-24)
+ALTER TABLE User ADD COLUMN aboutUser Text;
+
+
+
+
