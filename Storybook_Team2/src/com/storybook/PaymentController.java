@@ -61,6 +61,7 @@ public class PaymentController {
 			Payment payment = new Payment();
 			payment.setBookId(bookId);
 			payment.setUserId(userId);
+			payment.setNameOnCard(nameOnCard);
 			payment.setCardType(cardType);
 			payment.setCardNumber(cardNumber);
 			payment.setExpiryDate(expiryDate);

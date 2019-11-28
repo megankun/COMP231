@@ -1,5 +1,11 @@
 package com.storybook;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,8 +19,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -182,18 +195,22 @@ public class EpisodeController {
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
-
 		
 		Query chapters = em.createQuery("select s from Story s where s.bookId = :param").setParameter("param", Integer.parseInt(bookId));
 		List<Story> chapterList = chapters.getResultList();
+
+
+ 		Query query1 = em.createQuery("select u from User u where u.userId = :param").setParameter("param", Integer.parseInt(userId));
+ 		User user = (User) query1.getResultList().get(0);
 		
 		em.close();
 		
 		modelAndView.addObject("chapterList", chapterList);
 		modelAndView.addObject("bookId", bookId);
 		modelAndView.addObject("userId", userId);
+
+		modelAndView.addObject("userType", user.getUserType());
 		
-		// return to list of stories for that book (Megan)
 		return modelAndView;
 	}
 
@@ -493,6 +510,80 @@ public class EpisodeController {
 		
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		modelAndView.addObject("userId", userId);
+		
+		return modelAndView;
+	}
+
+	@RequestMapping(value= "/uploadDraft")
+	public ModelAndView uploadDraft(String userId, String bookId, String storyId)
+	{
+		ModelAndView modelAndView = new ModelAndView("upload_draft");
+
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+
+		em.getTransaction().begin();
+		
+		Query queryForBook = em.createQuery("select b from Book b where b.bookId = :bookId")
+				.setParameter("bookId", Integer.parseInt(bookId));
+		Book book = (Book)queryForBook.getResultList().get(0);
+
+		Query queryForStory = em.createQuery("select s from Story s where s.storyId = :storyId")
+				.setParameter("storyId", Integer.parseInt(storyId));
+		Story story = (Story)queryForStory.getResultList().get(0);
+
+		em.close();
+		
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("book", book);
+		modelAndView.addObject("story", story);
+		
+		return modelAndView;
+	}
+	
+	/**
+	 * Upload single file 
+	 */
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	public @ResponseBody
+	ModelAndView uploadFileHandler(@RequestParam("name") String name,
+									@RequestParam("file") MultipartFile file,
+									String userId, String bookId, String storyId) {
+
+		if (!file.isEmpty()) {
+			try {
+				byte[] bytes = file.getBytes();
+
+				// Creating the directory to store file
+				String rootPath = System.getProperty("catalina.home");
+				File dir = new File(rootPath + File.separator + "tmpFiles");
+				if (!dir.exists())
+					dir.mkdirs();
+
+				// Create the file on server
+				File serverFile = new File(dir.getAbsolutePath() + File.separator 
+						+ userId+"_"+bookId+"_"+storyId+"_"+name);
+				
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);
+				stream.close();
+
+				// Saved File Location=/Users/kyungjin/Downloads/Semester 5/COMP303 - Java EE Programming/Utilties/apache-tomcat-9.0.24/tmpFiles/
+			} catch (Exception e) {
+				// fail to upload
+			}
+		} else {
+			// fail to upload, file empty
+		}
+		return chapter(userId, bookId);
+	}
+	
+	//draftList
+	@RequestMapping(value= "/draftList")
+	public ModelAndView draftList(String userId, String bookId, String storyId)
+	{
+		ModelAndView modelAndView = new ModelAndView("draft_list");
 		
 		return modelAndView;
 	}

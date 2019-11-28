@@ -16,40 +16,48 @@
 <body>
 	<%@ include file="navigation_bar.jsp" %>
 	
-	<h1 class="text-center">List of Chapters</h1>
+	<div class="container">
+		<h3 class="text-center">Write story for your book !</h3>
+		<br />
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Chapter Title</th>
-				<th scope="col">Note</th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="chapter" items="${chapterList}">
+		<table class="table">
+			<thead>
 				<tr>
-					<td>${chapter.getChapterTitle()}</td>
-					<td>${chapter.getNote()}</td>
-					<td>
-						<form action="loadEditStory">
-							<input type="hidden" value="${chapter.getBookId()}" name="bookId">
-							<input type="hidden" value="${userId}" name="userId">
-							<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
-							<button type="submit" class="btn btn-primary">Edit</button>
-						</form>
-					</td>
+					<th scope="col">Chapter Title</th>
+					<th scope="col">Note</th>
+					<th scope="col"></th>
 				</tr>
-			</c:forEach>
-			
-				<tr>
-				<td>
-					<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
-				</td>
-				</tr>
-		</tbody>
-	</table>		
-
+			</thead>
+			<tbody>
+				<c:forEach var="chapter" items="${chapterList}">
+					<tr>
+						<td>${chapter.getChapterTitle()}</td>
+						<td>${chapter.getNote()}</td>
+						<td>
+							<c:choose>
+								<c:when test="${userType == 'Editor'}">
+									<a class="btn btn-primary" href="<c:url value="/uploadDraft?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Upload Draft</a>
+									<a class="btn btn-primary" href="<c:url value="/draftList?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Draft List</a>
+								</c:when>
+								<c:otherwise>
+									<form action="loadEditStory">
+										<input type="hidden" value="${chapter.getBookId()}" name="bookId">
+										<input type="hidden" value="${userId}" name="userId">
+										<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
+										<button type="submit" class="btn btn-primary">Edit</button>
+									</form>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>		
+		
+		<div class="text-center">
+			<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
+		</div>
+	</div>
 
 	
 </body>

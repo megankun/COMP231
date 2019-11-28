@@ -67,6 +67,7 @@
 							<c:when test="${userType == 'Investor'}">
 								<td><a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a></td>
 							</c:when>
+							
 							<c:otherwise>
 								<td><a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> <a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a></td>
 							</c:otherwise>
@@ -83,6 +84,7 @@
 			<c:when test="${userType == 'Investor'}">
 
 			</c:when>
+			
 			<c:otherwise>
 				<div class="text-center">
 					<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a> 

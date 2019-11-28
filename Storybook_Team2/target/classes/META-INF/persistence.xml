@@ -8,6 +8,8 @@
 		<class>com.storybook.Story</class>
 		<class>com.storybook.Story_BookCharacter</class>
 		<class>com.storybook.Story_Location</class>
+		<class>com.storybook.Payment</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
