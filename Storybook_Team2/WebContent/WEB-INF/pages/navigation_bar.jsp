@@ -17,7 +17,6 @@
 			<a class="p-2 text-muted" href="<c:url value="/tutorial?userId=${userId}"/>">Tutorial</a>
 		    <a class="p-2 text-muted" href="<c:url value="/searchStories?userId=${userId}"/>">Search Stories</a>
 		    <a class="p-2 text-muted" href="<c:url value="/episode?userId=${userId}"/>">Episode</a>
-		    <a class="p-2 text-muted" href="<c:url value="/userDetailsList?userId=${userId}"/>">Users</a>
 		    <a class="p-2 text-muted" href="<c:url value="/userAccountInfo?userId=${userId}"/>">My Account</a>	    
 		</nav>
 	</div>

@@ -1,4 +1,4 @@
-package com.storybook.controllers;
+package com.storybook;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -29,12 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.storybook.entity.Book;
-import com.storybook.entity.Story;
-import com.storybook.entity.Story_BookCharacter;
-import com.storybook.entity.Story_Location;
-import com.storybook.entity.User;
 
 
 
@@ -201,8 +195,7 @@ public class EpisodeController {
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
-
-		// get the list of stories/chapters for the selected book by id
+		
 		Query chapters = em.createQuery("select s from Story s where s.bookId = :param").setParameter("param", Integer.parseInt(bookId));
 		List<Story> chapterList = chapters.getResultList();
 
@@ -218,7 +211,6 @@ public class EpisodeController {
 
 		modelAndView.addObject("userType", user.getUserType());
 		
-		// return to list of stories for that book
 		return modelAndView;
 	}
 
@@ -231,18 +223,16 @@ public class EpisodeController {
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
 		
-		// get the book id, user id, and story id from the view
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		int storyId = Integer.parseInt(request.getParameter("storyId"));
 		
-		// get the specific story from the table Story by the bookId and storyId
+
 		Query chapters = em.createQuery("select s from Story s where s.bookId = :bookId and s.storyId = :storyId")
 				.setParameter("bookId", bookId)
 				.setParameter("storyId", storyId);
 		List<Story> chapterList = chapters.getResultList();
 		
-		// add previous values to the view
 		for (Story chapter : chapterList)
 		{
 			modelAndView.addObject("chapterTitle", chapter.getChapterTitle());
@@ -250,7 +240,6 @@ public class EpisodeController {
 			modelAndView.addObject("createdAt", chapter.getCreated_at());
 		}
 		
-		// get the characters previously in the selected story and add the characters to the view
 		Query characters = em.createQuery("select c from Story_BookCharacter c where c.storyId = :storyId")
 				.setParameter("storyId", storyId);
 		List<Story_BookCharacter> characterList = characters.getResultList();
@@ -261,7 +250,6 @@ public class EpisodeController {
 		}
 		modelAndView.addObject("checkedCharacterIds", value);
 		
-		// get the locations previously in the selected story and add the locations to the view
 		Query locations = em.createQuery("select l from Story_Location l where l.storyId = :storyId")
 				.setParameter("storyId", storyId);
 		List<Story_Location> locationList = locations.getResultList();
@@ -272,7 +260,6 @@ public class EpisodeController {
 		}
 		modelAndView.addObject("checkedLocationIds", value);
 		
-		// get the book id from the table Book and add the book id to the view
 		Query query = em.createQuery("select b from Book b where b.userId = :userId and b.bookId = :bookId")
 				.setParameter("userId", userId)
 				.setParameter("bookId", bookId);
@@ -301,13 +288,16 @@ public class EpisodeController {
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
 
-		// Select Story Id, book id, chapter title, note, locations, characters, and created at time
+		// Select Story Id
 		int storyId = Integer.parseInt(request.getParameter("storyId"));
+
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 		String chapterTitle = request.getParameter("chapterTitle");
 		String note = request.getParameter("note");
+
 		String[] tempLocationIdsArray = request.getParameter("checkedLocationIds").split(",");
 		String[] tempCharacterIdsArray = request.getParameter("checkedCharacterIds").split(",");
+		
 		String createdAt = request.getParameter("createdAt");
 
 		// update Story
@@ -323,17 +313,19 @@ public class EpisodeController {
 
 		em.merge(story);
 		em.getTransaction().commit();
+
+		// update Story_Location
 		em.clear();          
         em.getTransaction().begin();
-
-
-		// remove all Story_Location for the specific story
+        
 		Query locations = em.createQuery("select l from Story_Location l where l.storyId = :storyId")
 				.setParameter("storyId", storyId);
 		List<Story_Location> locationList = locations.getResultList();
 		
-		for (Story_Location loc : locationList){
-			if (em.contains(loc)){
+		for (Story_Location loc : locationList)
+		{
+			if (em.contains(loc))
+			{
 				em.remove(loc);
 				em.getTransaction().commit();
 				em.clear();          
@@ -341,23 +333,25 @@ public class EpisodeController {
 			}
 		}
 		
-		// remove all Story_BookCharacter for the specific story
 		Query characters = em.createQuery("select c from Story_BookCharacter c where c.storyId = :storyId")
 				.setParameter("storyId", storyId);
 		List<Story_BookCharacter> characterList = characters.getResultList();
 		
-		for (Story_BookCharacter chara : characterList){
-			if (em.contains(chara)){
+		for (Story_BookCharacter chara : characterList)
+		{
+			if (em.contains(chara))
+			{
 				em.remove(chara);
 				em.getTransaction().commit();
 				em.clear();          
 		        em.getTransaction().begin();
 			}
 		}
-
-		em.clear();
 		
-		// update Story_Location
+
+		em.clear();          
+        //em.getTransaction().begin();
+		
 		for(int i = 0; i < tempLocationIdsArray.length; i++) {
 			Story_Location story_location = new Story_Location();
 			story_location.setStoryId(storyId);
@@ -370,7 +364,9 @@ public class EpisodeController {
 		}
 		
 		// update Story_BookCharacter
-		em.clear();
+		em.clear();      
+        //em.getTransaction().begin();
+
 
 		for(int i = 0; i < tempCharacterIdsArray.length; i++) {
 			Story_BookCharacter story_bookCharacter = new Story_BookCharacter();
@@ -383,9 +379,7 @@ public class EpisodeController {
 	        em.getTransaction().begin();
 		}
 
-		// get the list of chapters by bookId
-		Query chapters = em.createQuery("select s from Story s where s.bookId = :param")
-				.setParameter("param", bookId);
+		Query chapters = em.createQuery("select s from Story s where s.bookId = :param").setParameter("param", bookId);
 		List<Story> chapterList = chapters.getResultList();
 		
 		em.close();
@@ -400,6 +394,10 @@ public class EpisodeController {
 	}
 	
 
+	
+	
+	
+	
 	@RequestMapping(value= "/searchStories")
 	public ModelAndView searchStories(String userId)
 	{
@@ -510,7 +508,6 @@ public class EpisodeController {
 	public ModelAndView toAddBook(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("add_book");
 		
-		// get the user id and add to the view
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		modelAndView.addObject("userId", userId);
 		

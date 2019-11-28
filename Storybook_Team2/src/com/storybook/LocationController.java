@@ -1,4 +1,4 @@
-package com.storybook.controllers;
+package com.storybook;
 
 import java.util.List;
 
@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.storybook.entity.Book;
-import com.storybook.entity.Location;
 
 @Controller
 public class LocationController {
@@ -69,7 +66,7 @@ public class LocationController {
 	}
 	
 	
-	//Method to Delete Story Location
+	
 	@RequestMapping(value= "/deleteLocation")
 	public ModelAndView deleteSelectedLocation(String bookId,int userId,int locationId) {
 		ModelAndView modelAndView = new ModelAndView("location_list_update");
@@ -98,7 +95,6 @@ public class LocationController {
 		return modelAndView;
 	}
 	
-	//Method to Add New Story Book
 	@RequestMapping(value= "/newLocation", method = RequestMethod.GET)
 	public ModelAndView createNewLocation(@RequestParam String bookId, int userId) {
 		ModelAndView modelAndView = new ModelAndView("newLocation");
@@ -108,7 +104,6 @@ public class LocationController {
 		return modelAndView;
 	}
 	
-	//Method to Change Story Location Details
 	@RequestMapping(value= "/editLocation")
 	public ModelAndView editLocation(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("edit_location");
@@ -129,7 +124,6 @@ public class LocationController {
 		return modelAndView;
 	}
 	
-	//Method to Add New Location 
 	@RequestMapping(value= "/newLocation", method = RequestMethod.POST)
 	public ModelAndView createNewLocationforBook(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("location_list_update");

@@ -1,10 +1,8 @@
-package com.storybook.tests;
+package com.storybook;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import com.storybook.entity.Story;
 
 public class StoryTest {
 

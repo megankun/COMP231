@@ -1,4 +1,4 @@
-package com.storybook.entity;
+package com.storybook;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -72,7 +72,6 @@ public class User {
 	public void setPhoneNumber(String phoneNumber) {	//Method to Set User Phone No.
 		this.phoneNumber = phoneNumber;
 	}
-
 	public String getAboutUser() {					//Method to Retrieve About Me Details
 		return AboutUser;
 	}
