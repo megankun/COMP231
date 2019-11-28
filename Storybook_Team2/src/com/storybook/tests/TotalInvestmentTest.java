@@ -36,8 +36,8 @@ class TotalInvestmentTest {
 		u.setUserType("Writer");		
 		u.setFirstName("John");
 		
-		u.setEarnings(Double.parseDouble(p.getTotalPrice()) + Double.parseDouble(q.getTotalPrice()));
+		//u.setEarnings(Double.parseDouble(p.getTotalPrice()) + Double.parseDouble(q.getTotalPrice()));
 		
-		System.out.printf("%s has made %f", u.getFirstName(), u.getEarnings());
+		//System.out.printf("%s has made %f", u.getFirstName(), u.getEarnings());
 	}
 }

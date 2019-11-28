@@ -15,7 +15,7 @@ public class PaymentTest {
 		p.setBookId(1);
 		p.setUserId(1);
 		p.setCardType("Debit");
-		p.setTotalPrice(250);
+		p.setTotalPrice("250");
 	}
 
 }

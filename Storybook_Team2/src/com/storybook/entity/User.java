@@ -20,7 +20,7 @@ public class User {
 	private String lastName;		//User Surname
 	private String phoneNumber;		//User Phone Number
 	private String AboutUser;		//User About Me Details
-	private double earnings;			//Total Payments Received
+	//private double earnings;			//Total Payments Received
 
 	public int getUserId() {					//Method to Retrieve User ID
 		return this.userId;
@@ -80,7 +80,7 @@ public class User {
 	public void setAboutUser(String aboutUser) {	//Method to set About Me Details
 		AboutUser = aboutUser;
 	}
-	
+	/*
 	public double getEarnings() {
 		return earnings;
 	}
@@ -88,5 +88,6 @@ public class User {
 	public void setEarnings(double earnings) {
 		this.earnings = earnings;
 	}
+	*/
    
 }
