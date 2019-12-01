@@ -170,6 +170,8 @@ SELECT * FROM Story_BookCharacter;
 ---------------------------------------------------- Megan (2019-11-24)
 ALTER TABLE User ADD COLUMN aboutUser Text;
 
+---------------------------------------------------- Fu (2019-12-1)
+ALTER TABLE Payment ADD COLUMN bookId int;
 
 
 

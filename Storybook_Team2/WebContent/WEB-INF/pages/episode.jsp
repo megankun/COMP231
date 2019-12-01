@@ -75,6 +75,7 @@
 								<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> 
 								<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
 								<a class="btn btn-warning" href="<c:url value="/editBook?userId=${userId}&bookId=${book.bookId}"/>">Edit Book</a>
+								<a class="btn btn-primary" href="<c:url value="/editpayment?userId=${userId}&bookId=${book.bookId}"/>">Edit PaymentInfo</a>
 								</td>
 							</c:otherwise>
 						</c:choose>
