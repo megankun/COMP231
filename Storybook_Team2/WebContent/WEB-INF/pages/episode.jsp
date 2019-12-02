@@ -62,7 +62,17 @@
 					<tr>
 						<td><input type="radio" id="selectedBookId" name="selectedBookId" value="${book.bookId}"></td>
 						<th scope="row">${book.bookId}</th>
-						<td>${book.title}</td>
+						<td>
+							<c:choose>
+								<c:when test="${userType == 'Writer'}">
+									<a href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">${book.title}</a> 
+								</c:when>
+								
+								<c:otherwise>
+									${book.title}									
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td>${book.genre}</td>
 
 						<c:choose>
@@ -75,10 +85,13 @@
 							
 							<c:otherwise>
 								<td>
-								<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> 
-								<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
-								<a class="btn btn-warning" href="<c:url value="/editBook?userId=${userId}&bookId=${book.bookId}"/>">Edit Book</a>
-								<a class="btn btn-primary" href="<c:url value="/editpayment?userId=${userId}&bookId=${book.bookId}"/>">Edit PaymentInfo</a>
+									<!-- 
+									<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> 
+									<a class="btn btn-success" href="<c:url value="/addStory?userId=${userId}&bookId=${book.bookId}"/>">Write Story</a>
+									 -->
+									<a class="btn btn-warning" href="<c:url value="/editBook?userId=${userId}&bookId=${book.bookId}"/>">Edit Book</a>
+									<a class="btn btn-warning" href="<c:url value="/editpayment?userId=${userId}&bookId=${book.bookId}"/>">Edit PaymentInfo</a>
+									<a class="btn btn-danger" href="<c:url value="/deleteBook?userId=${userId}&bookId=${book.bookId}"/>">Delete Book</a>
 								</td>
 							</c:otherwise>
 						</c:choose>
@@ -97,18 +110,20 @@
 			
 			<c:otherwise>
 				<div class="text-center">
-					<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a> 
-					<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a> 
-					<a href='#' class="btn btn-primary" onclick='selectedBookId(3)'>Create New Character</a>
-					<a href='#' class="btn btn-primary" onclick='selectedBookId(4)'>Create New Location</a>
-                                                                                <a href='#' class="btn btn-primary" onclick='selectedBookId(5)'>Check Final Draft</a>
-				</div>
-				<br>
-				<div class="text-center">
 					<form action="toAddBook" method="post">
 						<input type="hidden" value="${userId}" name="userId">
-						<button type="submit" class="btn btn-primary">Create New Book</button>
+						<button type="submit" class="btn btn-success">Create New Book</button>
 					</form>
+				</div>
+				<br/>
+				<div class="text-center">
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(1)'>View Characters</a> 
+					<a href='#' class="btn btn-primary" onclick='selectedBookId(2)'>View Locations</a> 
+					<a href='#' class="btn btn-success" onclick='selectedBookId(3)'>Create New Character</a>
+					<a href='#' class="btn btn-success" onclick='selectedBookId(4)'>Create New Location</a>
+					
+					<br/><br/>
+					<a href='#' class="btn btn-info" onclick='selectedBookId(5)'>Check Final Draft</a>
 				</div>
 			</c:otherwise>
 		</c:choose>
