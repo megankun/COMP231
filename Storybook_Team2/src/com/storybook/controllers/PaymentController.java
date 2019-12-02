@@ -1,5 +1,7 @@
 package com.storybook.controllers;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.storybook.entity.Book;
 import com.storybook.entity.Payment;
 
 
@@ -21,7 +24,38 @@ public class PaymentController {
 	
 	private static EntityManagerFactory factory;
 	private static EntityManager em;
+	
+	
+	@RequestMapping(value= "/fundingList")
+	public ModelAndView fundingListforSelectedBook(String bookId, String userId) {
+		ModelAndView modelAndView = new ModelAndView("funding_list");
+		
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
 
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("select c from Payment c where c.bookId = :param").setParameter("param", Integer.parseInt(bookId));
+		List<Payment> fundingList = query.getResultList();
+		
+		em.close();
+		System.out.println("test");
+        
+		for(int i = 0; i < fundingList.size(); i++) {
+			 System.out.println("test1");
+	            System.out.println(fundingList.get(i).getNameOnCard());
+	            System.out.println(fundingList.get(i).getTotalPrice());
+	            
+	        }
+
+
+		
+		modelAndView.addObject("fundingList", fundingList);
+		modelAndView.addObject("userId",userId);
+		modelAndView.addObject("bookId", bookId);
+		return modelAndView;
+	}
+	
 	
 	@RequestMapping(value= "/payment")
 	public ModelAndView paymentforselectedBook(String bookId, String userId) {
