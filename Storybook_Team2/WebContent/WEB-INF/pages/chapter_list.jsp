@@ -39,13 +39,10 @@
 									<a class="btn btn-primary" href="<c:url value="/uploadDraft?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Upload Draft</a>
 									<a class="btn btn-primary" href="<c:url value="/draftList?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Draft List</a>
 								</c:when>
-								<c:otherwise>
-									<form action="loadEditStory">
-										<input type="hidden" value="${chapter.getBookId()}" name="bookId">
-										<input type="hidden" value="${userId}" name="userId">
-										<input type="hidden" value="${chapter.getStoryId()}" name="storyId">
-										<button type="submit" class="btn btn-primary">Edit</button>
-									</form>
+								<c:otherwise>									
+									<a class="btn btn-warning" href="<c:url value="/loadEditStory?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Edit</a>
+									<a class="btn btn-danger" href="<c:url value="/deleteStory?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Delete</a>
+									
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -55,7 +52,7 @@
 		</table>		
 		
 		<div class="text-center">
-			<a class="btn btn-primary" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
+			<a class="btn btn-success" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
 		</div>
 	</div>
 

@@ -589,6 +589,43 @@ public class EpisodeController {
 		
 		return modelAndView;
 	}
+	
+
+	// Delete Story
+	@RequestMapping(value= "/deleteStory")
+	public ModelAndView deleteStory(String userId, String bookId, String storyId)
+	{	
+		// delete book include all stories, locations, characters
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();		
+		int deletedCount;
+		
+		// Delete Story_Location 
+		em.getTransaction().begin();
+		Query queryforStory_Location = em.createQuery("delete from Story_Location sl where sl.storyId = :storyId");
+		deletedCount = queryforStory_Location.setParameter("storyId", Integer.parseInt(storyId)).executeUpdate();		
+		em.getTransaction().commit();
+		em.clear();
+		
+		// Delete Story_BookCharacter
+		em.getTransaction().begin();	
+		Query queryforStory_BookCharacter = em.createQuery("delete from Story_BookCharacter sc where sc.storyId = :storyId");
+		deletedCount = queryforStory_BookCharacter.setParameter("storyId", Integer.parseInt(storyId)).executeUpdate();
+		
+		em.getTransaction().commit();
+		em.clear();
+
+		// Delete Story
+		em.getTransaction().begin();
+		Query queryforStory = em.createQuery("delete from Story s where s.storyId = :storyId");
+		deletedCount = queryforStory.setParameter("storyId", Integer.parseInt(storyId)).executeUpdate();
+		em.getTransaction().commit();		
+		
+		em.close();
+
+		
+		return new ModelAndView("redirect:/chapterList?userId=" + userId + "&bookId=" + bookId);
+	}
 }
 
 	
