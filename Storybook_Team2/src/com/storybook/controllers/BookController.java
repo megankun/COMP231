@@ -141,6 +141,7 @@ public class BookController {
 		// Get the book title and genre from the view
 		String title = request.getParameter("bookTitle");
 		String genre = request.getParameter("genre");
+		String bookDescription = request.getParameter("bookDescription");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
 
 		// Edit Book
@@ -152,6 +153,7 @@ public class BookController {
 		book.setBookId(bookId);
 		book.setTitle(title);
 		book.setGenre(genre);
+		book.setBookDescription(bookDescription);
 
 		em.merge(book);
 
@@ -210,7 +212,30 @@ public class BookController {
 		
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/viewDescription")
+	public ModelAndView viewBookDescription(int userId, int bookId)
+	{
+		ModelAndView modelAndView = new ModelAndView("view_description");
 
+		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
+		em = factory.createEntityManager();
+
+		em.getTransaction().begin();
+
+		Query query = em.createQuery("select b from Book b where b.bookId = :bookId")
+				.setParameter("bookId", bookId);
+		
+		Book book = (Book) query.getResultList().get(0);
+		
+		em.close();
+
+		modelAndView.addObject("userId", userId);
+		modelAndView.addObject("bookId", bookId);
+		modelAndView.addObject("book", book);
+		
+		return modelAndView;
+	}
 }
 
 	

@@ -22,6 +22,7 @@ public class Book implements Serializable {
 	private int userId;				//ID Number for Users
 	private String title;			//Book Title
 	private String genre;			//Genre of Book
+	private String bookDescription; 	//Book Description
 	private static final long serialVersionUID = 1L;
 	
 	@OneToMany(targetEntity=Story.class, mappedBy="book",cascade=CascadeType.ALL, fetch = FetchType.LAZY) 
@@ -60,6 +61,14 @@ public class Book implements Serializable {
 		this.genre = genre;
 	}
 	
+	public String getBookDescription() {	//Method to Retrieve Book Description
+		return bookDescription;
+	}
+
+	public void setBookDescription(String bookDescription) {	//Method to Set Book Description
+		this.bookDescription = bookDescription;
+	}
+
 	public List<Story> getStoryList() {		//Method to Retrieve List of Stories
 		return storyList;
 	}

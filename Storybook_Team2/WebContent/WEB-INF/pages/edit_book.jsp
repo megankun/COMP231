@@ -16,7 +16,7 @@
 	<%@ include file="navigation_bar.jsp" %>
 	
 	<div style="width:50%; margin:auto;">
-		<h3 class="text-center">Create New Book</h3>
+		<h3 class="text-center">Edit Book Details</h3>
 		<br/>
 		
 		<br/><br/>
@@ -36,6 +36,10 @@
 			    	<input type="text" class="form-control" id="genre" value="${book.genre}" name="genre" required>
 			    </div>
 		    </div>
+			<div class="form-group row">
+				<label for="genre" class="col-sm-2 col-form-label">Book Description: </label>
+				<textarea class="form-control" id="bookDescription" name="bookDescription" rows="3" >${book.bookDescription}</textarea>
+			</div>
 			<div class="text-center">
 				<button class="btn btn-primary" type="submit">submit</button>
 			</div>

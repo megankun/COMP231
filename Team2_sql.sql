@@ -174,4 +174,7 @@ ALTER TABLE User ADD COLUMN aboutUser Text;
 ALTER TABLE Payment ADD COLUMN bookId int;
 
 
+---------------------------------------------------- Megan (2019-12-01)
+ALTER TABLE Book ADD COLUMN bookDescription Text;
+
 

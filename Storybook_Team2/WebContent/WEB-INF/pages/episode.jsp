@@ -67,7 +67,10 @@
 
 						<c:choose>
 							<c:when test="${userType == 'Investor'}">
-								<td><a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a></td>
+								<td>
+									<a class="btn btn-primary" href="<c:url value="/payment?userId=${userId}&bookId=${book.bookId}"/>">Payment</a>
+									<a class="btn btn-primary" href="<c:url value="/viewDescription?userId=${userId}&bookId=${book.bookId}"/>">View Description</a>
+								</td>
 							</c:when>
 							
 							<c:otherwise>
