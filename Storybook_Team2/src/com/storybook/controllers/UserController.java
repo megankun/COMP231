@@ -76,14 +76,12 @@ public class UserController {
 		if(!"".equals(request.getParameter("userId")) && !"".equals(request.getParameter("email")) &&
 				!"".equals(request.getParameter("password"))) {
 			
-			System.out.println("Update");
 			
 			// update
 			int userId = Integer.parseInt(request.getParameter("userId"));
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			
-			System.out.println("password ======= " + password);
 			String userType = request.getParameter("userType");
 			String firstname = request.getParameter("firstName");
 			String lastname = request.getParameter("lastName");
@@ -109,7 +107,6 @@ public class UserController {
 			
 		}else if(!"".equals(request.getParameter("email")) && !"".equals(request.getParameter("password"))) {
 
-			System.out.println("insert");
 			
 			// insert
 			String email = request.getParameter("email");

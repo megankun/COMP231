@@ -44,7 +44,6 @@ public class PaymentController {
 					
 	 if(!"".equals(request.getParameter("name"))) {
 
-			System.out.println("insert");
 			
 			// insert
 			int bookId  = Integer.parseInt(request.getParameter("bookId"));	

@@ -141,7 +141,6 @@ public class LocationController {
 		if(!"".equals(request.getParameter("locationId")) && !"".equals(request.getParameter("bookId")) &&
 				!"".equals(request.getParameter("name"))) {
 			
-			System.out.println("Update");
 			
 			// update
 			int locationId  = Integer.parseInt(request.getParameter("locationId"));
@@ -167,13 +166,10 @@ public class LocationController {
 			
 		}else if(!"".equals(request.getParameter("name"))) {
 
-			System.out.println("insert");
 			
 			// insert
 			int bookId  = Integer.parseInt(request.getParameter("bookId"));	
-			System.out.print(bookId);
 			String name = request.getParameter("name");
-			System.out.print(name);
 			String description = request.getParameter("description");
 
 			em.getTransaction().begin();

@@ -145,7 +145,6 @@ public class CharacterController {
 		if(!"".equals(request.getParameter("characterId")) && !"".equals(request.getParameter("bookId")) &&
 				!"".equals(request.getParameter("name"))) {
 			
-			System.out.println("Update");
 			
 			// update
 			int characterId  = Integer.parseInt(request.getParameter("characterId"));
@@ -173,15 +172,11 @@ public class CharacterController {
 			
 		}else if(!"".equals(request.getParameter("name"))) {
 
-			System.out.println("insert");
 			
 			// insert
 			int bookId  = Integer.parseInt(request.getParameter("bookId"));	
-			System.out.print(bookId);
 			String name = request.getParameter("name");
-			System.out.print(name);
 			int age = Integer.parseInt(request.getParameter("age"));
-			System.out.print(age);
 			String appereance = request.getParameter("appereance");
 
 			em.getTransaction().begin();

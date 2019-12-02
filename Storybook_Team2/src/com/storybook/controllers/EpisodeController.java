@@ -75,7 +75,6 @@ public class EpisodeController {
 		em.close();
 	
 		modelAndView.addObject("userType", user.getUserType());	
-		System.out.println(user.getUserType());
 		modelAndView.addObject("userId", userId);
 		modelAndView.addObject("bookList", bookList);
 		
