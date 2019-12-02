@@ -64,7 +64,7 @@
 						<th scope="row">${book.bookId}</th>
 						<td>
 							<c:choose>
-								<c:when test="${userType == 'Writer'}">
+								<c:when test="${userType != 'Investor'}">
 									<a href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">${book.title}</a> 
 								</c:when>
 								
@@ -83,7 +83,7 @@
 								</td>
 							</c:when>
 							
-							<c:otherwise>
+							<c:when test="${userType == 'Writer'}">
 								<td>
 									<!-- 
 									<a class="btn btn-primary" href="<c:url value="/chapterList?userId=${userId}&bookId=${book.bookId}"/>">View Stories</a> 
@@ -93,7 +93,7 @@
 									<a class="btn btn-warning" href="<c:url value="/editpayment?userId=${userId}&bookId=${book.bookId}"/>">Edit PaymentInfo</a>
 									<a class="btn btn-danger" href="<c:url value="/deleteBook?userId=${userId}&bookId=${book.bookId}"/>">Delete Book</a>
 								</td>
-							</c:otherwise>
+							</c:when>
 						</c:choose>
 
 					</tr>
@@ -108,7 +108,7 @@
 
 			</c:when>
 			
-			<c:otherwise>
+			<c:when test="${userType == 'Writer'}">
 				<div class="text-center">
 					<form action="toAddBook" method="post">
 						<input type="hidden" value="${userId}" name="userId">
@@ -125,7 +125,7 @@
 					<br/><br/>
 					<a href='#' class="btn btn-info" onclick='selectedBookId(5)'>Check Final Draft</a>
 				</div>
-			</c:otherwise>
+			</c:when>
 		</c:choose>
 
 

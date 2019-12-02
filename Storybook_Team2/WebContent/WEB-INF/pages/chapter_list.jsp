@@ -36,14 +36,13 @@
 						<td>
 							<c:choose>
 								<c:when test="${userType == 'Editor'}">
-									<a class="btn btn-primary" href="<c:url value="/uploadDraft?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Upload Draft</a>
-									<a class="btn btn-primary" href="<c:url value="/draftList?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Draft List</a>
+									<a class="btn btn-success" href="<c:url value="/uploadDraft?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Upload Draft</a>
 								</c:when>
-								<c:otherwise>									
+								<c:when test="${userType == 'Writer'}">							
 									<a class="btn btn-warning" href="<c:url value="/loadEditStory?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Edit</a>
 									<a class="btn btn-danger" href="<c:url value="/deleteStory?userId=${userId}&bookId=${bookId}&storyId=${chapter.storyId}"/>">Delete</a>
 									
-								</c:otherwise>
+								</c:when>
 							</c:choose>
 						</td>
 					</tr>
@@ -51,9 +50,11 @@
 			</tbody>
 		</table>		
 		
-		<div class="text-center">
-			<a class="btn btn-success" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
-		</div>
+		<c:if test="${userType == 'Writer'}">		
+			<div class="text-center">
+				<a class="btn btn-success" href="<c:url value="/addStory?userId=${userId}&bookId=${bookId}"/>">Write Story</a>
+			</div>
+		</c:if>
 	</div>
 
 	

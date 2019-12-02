@@ -581,15 +581,6 @@ public class EpisodeController {
 		return chapter(userId, bookId);
 	}
 	
-	//draftList
-	@RequestMapping(value= "/draftList")
-	public ModelAndView draftList(String userId, String bookId, String storyId)
-	{
-		ModelAndView modelAndView = new ModelAndView("draft_list");
-		
-		return modelAndView;
-	}
-	
 
 	// Delete Story
 	@RequestMapping(value= "/deleteStory")
