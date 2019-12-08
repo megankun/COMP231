@@ -115,6 +115,7 @@ public class BookController {
 		modelAndView.addObject("book", book);	
 		modelAndView.addObject("locations", locations);
 		modelAndView.addObject("characters", characters);
+		modelAndView.addObject("userId", userId);
 		//modelAndView.addObject("stories", stories);
 		
 		return modelAndView;
