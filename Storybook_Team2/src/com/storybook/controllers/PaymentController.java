@@ -68,7 +68,7 @@ public class PaymentController {
 	
 	//Method to Handle Payment Transactions
 	@RequestMapping(value= "/payment", method = RequestMethod.POST)
-	public ModelAndView createNewCharacteforBook(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView addPayment(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("paymentConfirmation");
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
@@ -113,7 +113,8 @@ public class PaymentController {
 			
 		}		
 	 	em.close();
-			
+	 	int userId1  = Integer.parseInt(request.getParameter("userId"));	
+	 	modelAndView.addObject("userId",userId1);
 		return modelAndView;
 	}
 	

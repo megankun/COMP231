@@ -25,7 +25,7 @@
 	    </c:when>    
 	    <c:otherwise>
 	        <br/>
-			<h2 style="text-align:center">Create New Character</h2>
+			<h2 style="text-align:center">Create New Location</h2>
 	    </c:otherwise>
 	</c:choose>
 	<br />
