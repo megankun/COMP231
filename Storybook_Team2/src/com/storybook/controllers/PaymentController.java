@@ -124,19 +124,25 @@ public class PaymentController {
 		ModelAndView modelAndView = new ModelAndView("edit_payment");
 	    factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 		em = factory.createEntityManager();
-		Query query = em.createQuery("select p from Payment p where p.userId = '" + userId + "' and p.bookId='"+bookId+"'" );
-		Payment payment = null;
-		if(!query.getResultList().isEmpty()) {
-			payment = (Payment) query.getResultList().get(0);
-				
+
+		em.getTransaction().begin();
+		Query query = em.createQuery("select p from Payment p where p.userId = " + userId + " and p.bookId = " + bookId );
+		Payment payment = new Payment();
+		if (query.getResultList().isEmpty())
+		{
+			payment.setUserId(Integer.parseInt(userId));
+			payment.setBookId(Integer.parseInt(bookId));
+			em.persist(payment);
+			em.getTransaction().commit();
+			em.clear();
+
+			Query query2 = em.createQuery("select p from Payment p where p.userId = " + userId + " and p.bookId = " + bookId );
+			payment = (Payment) query2.getResultList().get(0);
+		 	em.close();
 		}
-		
-		if(payment == null) {
-			
-			modelAndView.addObject("userId",userId);
-			modelAndView.addObject("bookId", bookId);
-			return modelAndView;
-			
+		else
+		{
+			payment = (Payment) query.getResultList().get(0);
 		}
 		
 		modelAndView.addObject("userId",userId);
@@ -170,7 +176,7 @@ public class PaymentController {
 		
 		factory = Persistence.createEntityManagerFactory("Storybook_Team2");
 	    em.getTransaction().begin();
-	    payment=em.find(Payment.class, Integer.parseInt(request.getParameter("paymentId")));
+	    payment=em.find(Payment.class, paymentId);
 	    
 	    payment.setBookId(bookId);
 		payment.setUserId(userId);
@@ -186,6 +192,7 @@ public class PaymentController {
 		em.getTransaction().commit();
 		
 		modelAndView.addObject("payment", payment);
+		modelAndView.addObject("userId", userId);
 				
 	  	return modelAndView;
 	}

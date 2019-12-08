@@ -28,8 +28,8 @@
 			<h3 style="text-align:center;">Payment</h3>
 			<br/>
 			<input type="hidden" name="bookId" value="${bookId}"/>
-			<input type="hidden" name="userId" value="${userId}"/>
-			<input type="hidden" name="paymentId" value="${payment.paymentId}"/>
+			<input type=hidden name="userId" value="${userId}"/>
+			<input type="hidden" name="paymentId" value="${paymentId}"/>
 			
 			
 			<div class="d-block my-3">
