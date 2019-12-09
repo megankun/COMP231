@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.storybook.entity.Book;
 import com.storybook.entity.BookCharacter;
 import com.storybook.entity.Location;
+import com.storybook.entity.Story;
 import com.storybook.entity.User;
 
 
@@ -108,6 +109,10 @@ public class BookController {
 				.setParameter("bookId", bookId);
 		List<BookCharacter> characters = queryForCharacter.getResultList();
 		
+		// Search all the stories of the book
+		Query queryForStory = em.createQuery("select s from Story s where s.bookId = :bookId")
+				 .setParameter("bookId", bookId);
+		List<Story> stories = queryForStory.getResultList();
 		
 	    em.clear();
 		em.close();
@@ -116,7 +121,7 @@ public class BookController {
 		modelAndView.addObject("locations", locations);
 		modelAndView.addObject("characters", characters);
 		modelAndView.addObject("userId", userId);
-		//modelAndView.addObject("stories", stories);
+		modelAndView.addObject("stories", stories);
 		
 		return modelAndView;
 	}
