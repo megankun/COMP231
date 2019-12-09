@@ -31,7 +31,7 @@
 		  		<li><b>Genre: </b>${book.genre}</li>
 		  	</ul>
 		</div>
-		<textarea cols="132" rows="20">
+		<textarea cols="77" rows="20">
 		Locations:
 			<c:forEach var="location" items="${locations}">
 			 Name: ${location.name},   Description: ${location.description}
